@@ -267,3 +267,31 @@ and any deviation from `docs/protocol_v0.3.md`.
 - **H4 not supported**: (i) and (iii) fail. p for Holm = 0.994. Condition (i) had no room, as noted in the design entry.
 - Descriptive, not tested: AWID2 is the only Evil_Twin training set with a strong imbalance (2,633 attack rows for 100,000 normal rows). There, RF PR-AUC is 0.997 with no treatment, 0.956 with weighting and 0.910 with SMOTE (XGB: 0.9996, 0.9998, 0.998). Trained on AWID2 and tested on AWID3, SMOTE halves the RF transfer PR-AUC (0.093 to 0.050), which raises its G (0.90 to 0.95).
 
+
+## 2026-11-22 - Pre-submission review and plan before S8
+
+- Target: arXiv preprint (cs.CR), then Computers & Security; fallback JISA. A first arXiv submission needs an endorser in cs.CR.
+- Before S8 I ran an internal pre-submission review of the protocol, journal, code and result files from three angles: ML methodology and statistics, 802.11 security, and a Computers & Security reviewer. The points below are facts about the existing files; none of the analyses listed in the plan has been run yet.
+- **Deviation 10 (found after the results, 2026-11-22).** Protocol 9.4 defines F-sem as "Family S only (plus derived per-BSSID deltas)". The derived features were never built. F-sem in S4, S5 and S7 is the raw S fields kept by S2b (frame-control fields, plus the reason code on Rogue_AP). Every F-sem result is read as "raw frame-control fields kept by S2b".
+- **Seeds.** The training sample is fixed per block (`sample_seed` = block number); the seed only changes the learner's random state, and XGB results are identical across seeds. Seeds are not independent replicates: tests that counted them as such (H2b, H2c, H4) will be recomputed on one unit per configuration in S8.
+- **H3b.** Registered as one hypothesis, so its p-value is the larger of its two parts. Deviation 9 was decided after the S5 results were known; its rule part is reported as exploratory.
+- **Pre-registered analyses not yet done:** block-bootstrap CIs (deviation 5 promised them once predictions are stored; S4 stores none), ARS without U fields, per-sub-task in-domain results, effect sizes, and the check of non-unanimous taxonomy fields promised on 2026-11-15.
+- **Open questions, to be checked before any wording changes:**
+  - whether the AWID3 Evil_Twin rogue beacons carry an RSN element: the S4y element-length lists contain no 20-byte element, while `mfpc` reads "0" for half of them;
+  - what the R2 and R3 alarms on frames labelled Normal are;
+  - whether the AWID2 rules are affected by removing the other attack classes' rows before computing them;
+  - why 10 to 12 of the 40 transfer configurations score exactly the target prevalence;
+  - the effect of `radiotap.dbm_antsignal` being a text column label-encoded in sorted-string order (in S5, over both datasets);
+  - the random-split contrast on Evil_Twin: the gap comes only from blocks 3-4, and F-sem shows the same gap;
+  - the attribution contrast for `frame.len` (Saabas on one decision tree vs TreeSHAP on XGB).
+- **AWID2 evil_twin class:** 3,205 of its 3,244 attack frames are beacons or probe responses, none are data frames, and it clones the legitimate BSSID. Its mechanism differs from AWID3 Evil_Twin.
+- **Wording:** README findings 3 and 5-10 and the "Partly" verdicts of H2b and H3b will be revised once the analyses below are done, not before. The abstract's opening sentence is kept; the threat-model section will describe the security profile of each AWID3 attack once checked.
+- **Plan (decided 2026-11-22, before running any of it; everything is exploratory except item 4, which was registered):**
+  1. S8 statistics note in this journal before computing: units of analysis, Holm membership and composite rule, chance-corrected gap Gc = 1 - (T - p)/(I - p) excluding in-domain scores below 0.5, effect sizes, ARS without U.
+  2. 802.11 checks: tshark on the AWID3 Evil_Twin rogue beacons (RSN element, privacy bit); breakdown of the R2/R3 alarms by subtype, BSSID and length; deauthentication reason codes and destinations; AWID2 rules recomputed on all rows and scored on normal and evil_twin.
+  3. Transfer checks from existing files: announcement-level (ET-B) results and Gc; number of distinct target scores per configuration; per-field shift between datasets; LR on F-chatz on announcements.
+  4. Seed-0 prediction dump: block-bootstrap CIs, per-block random vs blocked, sub-task results, clean-period false positives.
+  5. Taxonomy robustness (RSSI as its own family, airtime with length, non-unanimous fields reassigned); Saabas vs TreeSHAP on the same models; the 76-field blind sample sent to a human annotator.
+  6. Rewording of README, RESULTS and paper notes against these results; known/new contribution table; confirmatory vs exploratory sections; practical checklist (contribution C3).
+  7. Last, if time allows: announcement-level transfer AWID3 Rogue_AP <-> AWID2 evil_twin; F-sem+ (derived per-BSSID features, RSN present, MFPC) with RF and XGB on S4 blocked and S5, then the perturbation on those models. Before each run I write here what it checks and what would count as each outcome.
+- **Later version:** SMOTE at the natural class ratio, seeds that resample the training data, forward-chaining split, all five model families.
