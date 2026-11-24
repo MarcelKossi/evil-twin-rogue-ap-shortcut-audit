@@ -258,3 +258,24 @@ git add results
 git commit -m "S7 imbalance probe results"
 ```
 
+
+## 18. 802.11 checks (exploratory, plan item 2)
+
+| Command | Output | Time |
+|---|---|---|
+| `python scripts/16_rv2_80211_checks.py --layout` | List of the AWID3 pcap members (printed, nothing written) | < 1 min |
+| `python scripts/16_rv2_80211_checks.py` | `results/RV2_awid3.json`, `results/RV2_awid2.json`, `results/RV2_pcap.json` | about 1 h |
+
+Three parts: rule alarms and deauthentication frames on AWID3, the AWID2 rules on all rows,
+and the security profile of every announcement read from the pcap files. Each part first
+reproduces the S6 counts it builds on, and stops if they differ. A finished part is skipped on
+a re-run; `--part pcap --force` redoes one part.
+
+```cmd
+git add scripts/16_rv2_80211_checks.py RUNBOOK.md docs/journal.md
+git commit -m "802.11 checks: script and plan (exploratory)"
+python scripts/16_rv2_80211_checks.py --layout
+python scripts/16_rv2_80211_checks.py
+git add results
+git commit -m "802.11 checks: results"
+```
