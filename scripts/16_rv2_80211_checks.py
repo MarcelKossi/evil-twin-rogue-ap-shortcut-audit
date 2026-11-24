@@ -443,8 +443,39 @@ def pcap_members(zf: zipfile.ZipFile, cls: str) -> list[zipfile.ZipInfo]:
                   key=lambda i: natural_key(i.filename))
 
 
+MAGIC = {b"PK\x03\x04": "zip", b"7z\xbc\xaf\x27\x1c": "7z", b"Rar!\x1a\x07": "rar", b"\x1f\x8b": "gzip",
+         b"\xfd7zXZ\x00": "xz", b"BZh": "bzip2", b"\xd4\xc3\xb2\xa1": "pcap", b"\x0a\x0d\x0d\x0a": "pcapng"}
+
+
+def describe_archive(path: Path) -> None:
+    """When zipfile cannot open the archive: its first bytes and the zip end records in its last MiB."""
+    size = path.stat().st_size
+    with open(path, "rb") as fh:
+        head = fh.read(512)
+        fh.seek(max(0, size - (1 << 20)))
+        tail = fh.read()
+    kind = next((k for m, k in MAGIC.items() if head.startswith(m)), "unknown")
+    if kind == "unknown" and head[257:262] == b"ustar":
+        kind = "tar"
+    print(f"[RV2] {path.name}: {size:,} bytes; first bytes {head[:8].hex()} ({kind})")
+    for name, sig in (("end of central directory", b"PK\x05\x06"), ("zip64 end record", b"PK\x06\x06"),
+                      ("zip64 locator", b"PK\x06\x07"), ("central directory entries", b"PK\x01\x02"),
+                      ("local file headers", b"PK\x03\x04")):
+        pos = tail.rfind(sig)
+        where = "none" if pos < 0 else f"{tail.count(sig)} found, last one {len(tail) - pos:,} bytes before the end"
+        print(f"[RV2]   last MiB, {name}: {where}")
+
+
+def open_pcap_zip(paths: dict) -> zipfile.ZipFile:
+    try:
+        return zipfile.ZipFile(paths["awid3_pcap_zip"])
+    except zipfile.BadZipFile:
+        describe_archive(paths["awid3_pcap_zip"])
+        raise SystemExit("[RV2] the pcap archive cannot be opened as a zip; see the lines above")
+
+
 def layout(paths: dict) -> None:
-    with zipfile.ZipFile(paths["awid3_pcap_zip"]) as zf:
+    with open_pcap_zip(paths) as zf:
         tops = Counter(i.filename.replace("\\", "/").split("/")[0] for i in zf.infolist())
         print(f"[RV2] {sum(tops.values())} members; top-level: {dict(tops)}")
         folders = Counter("/".join(i.filename.replace("\\", "/").split("/")[:-1]) for i in zf.infolist()
@@ -462,7 +493,7 @@ def layout(paths: dict) -> None:
 
 def part_pcap(paths: dict) -> dict:
     out = {}
-    with zipfile.ZipFile(paths["awid3_pcap_zip"]) as zf:
+    with open_pcap_zip(paths) as zf:
         for cap, cls in CAPTURES.items():
             rows, n, links, per_member = [], 0, Counter(), {}
             for info in pcap_members(zf, cls):
