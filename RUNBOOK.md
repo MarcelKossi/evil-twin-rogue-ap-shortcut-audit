@@ -265,6 +265,7 @@ git commit -m "S7 imbalance probe results"
 |---|---|---|
 | `python scripts/16_rv2_80211_checks.py --layout` | List of the AWID3 pcap members (printed, nothing written) | < 1 min |
 | `python scripts/16_rv2_80211_checks.py` | `results/RV2_awid3.json`, `results/RV2_awid2.json`, `results/RV2_pcap.json` | about 1 h |
+| `python scripts/16_rv2_80211_checks.py --part pcap` | `results/RV2_pcap.json`, or `results/RV2_pcap_archive.json` when the archive cannot be opened | < 1 min if the archive cannot be opened |
 
 Three parts: rule alarms and deauthentication frames on AWID3, the AWID2 rules on all rows,
 and the security profile of every announcement read from the pcap files. Each part first
@@ -278,4 +279,32 @@ python scripts/16_rv2_80211_checks.py --layout
 python scripts/16_rv2_80211_checks.py
 git add results
 git commit -m "802.11 checks: results"
+```
+
+## 19. S6 re-run (deviation 12), file format check, pcap archive diagnostic
+
+| Command | Output | Time |
+|---|---|---|
+| `python scripts/14_s6_rules.py` | `results/S6_rules.json` | about 20-40 min |
+| `python scripts/17_rv3_file_format.py` | `results/RV3_file_format.json` | about 20-45 min (reads every column of both Parquet tables) |
+| `python scripts/16_rv2_80211_checks.py --part pcap` | `results/RV2_pcap_archive.json` when the archive cannot be opened (the command then ends with an error message) | < 1 min |
+
+S6: R2 reads an integer written with a trailing `.0` as the same integer; the first results
+are kept in `results/S6_rules_v1.json`. File format check (exploratory): how each AWID3 CSV
+file writes its values (integers with or without `.0`, exponent notation, clock digits), and
+whether a change of format lines up with the attack window; a finished capture is kept on a
+re-run. Everything is committed before the runs, so the results carry a clean commit.
+
+```cmd
+git mv results\S6_rules.json results\S6_rules_v1.json
+git commit -m "Keep S6 v1 results before the re-run (deviation 12)"
+git add scripts/14_s6_rules.py scripts/16_rv2_80211_checks.py scripts/17_rv3_file_format.py docs/journal.md RUNBOOK.md README.md
+git commit -m "S6 R2 fix (deviation 12), file format check and pcap archive diagnostic"
+git status
+python scripts/14_s6_rules.py
+python scripts/17_rv3_file_format.py
+python scripts/16_rv2_80211_checks.py --part pcap
+git add results
+git commit -m "S6 re-run, file format check and pcap archive diagnostic: results"
+git push
 ```

@@ -15,6 +15,11 @@ Five rules defined a priori, no parameter tuned on test data. Reference profile:
 Score = number of rules fired on the frame (0-5); PR-AUC over all frames of the dataset,
 also per sub-task (ET-B, ET-D). A rule whose fields are missing is not applicable.
 
+Profile values (R2): an integer written with a trailing .0 (`1.0`, `0.00`) is read as the same
+integer (`1`, `0`), also inside comma-separated lists; every other value is compared as written.
+Some AWID3 CSV files write `1.0` where others write `1` (deviation 12, journal 2026-11-27); the
+first version compared the text as written and kept its results in results/S6_rules_v1.json.
+
 H3b (rule part). The rules learn nothing from labels: the reference profile is taken from
 the target's own first minute, so their transfer gap is 0 by construction. As decided before
 running (journal, deviation 9), the rule part of H3b compares the rule PR-AUC on each target
@@ -57,11 +62,18 @@ BASE = ["frame.time_epoch", "wlan.fc.type", "wlan.fc.subtype", "wlan.fc.protecte
         "wlan.bssid", "wlan.sa", "wlan.ssid", "wlan.seq", "wlan.fixed.timestamp"]
 PROFILE = ("wlan.rsn.", "wlan.fixed.capabilities.")
 REF_SECONDS, SEQ_JUMP, DEAUTH_N = 60.0, 100, 10
+INT_DOT0 = r"(?<![\w.])(-?\d+)\.0+(?![\w.])"   # 1.0 -> 1, also inside comma-separated lists
 S5 = ROOT / "results" / "S5_transfer.json"
 
 
 def num(s: pd.Series) -> np.ndarray:
     return s2b.parse_numeric(s).to_numpy("float64")
+
+
+def profile_text(a: pd.DataFrame, cols: list[str]) -> np.ndarray:
+    """One text per announcement: its profile values joined by '|', integers written without .0."""
+    vals = a[cols].fillna("-").astype(str).apply(lambda c: c.str.replace(INT_DOT0, r"\1", regex=True))
+    return vals.agg("|".join, axis=1).to_numpy(str)
 
 
 def collect(chunks, profile_cols: list[str]) -> dict:
@@ -82,7 +94,7 @@ def collect(chunks, profile_cols: list[str]) -> dict:
         parts["a_ssid"].append(a["wlan.ssid"].fillna("").to_numpy(str))
         parts["a_bssid"].append(a["wlan.bssid"].fillna("").to_numpy(str))
         parts["a_tsf"].append(num(a["wlan.fixed.timestamp"]))
-        parts["a_prof"].append(a[profile_cols].fillna("-").astype(str).agg("|".join, axis=1).to_numpy(str)
+        parts["a_prof"].append(profile_text(a, profile_cols)
                                if profile_cols and len(a) else np.full(len(a), "", dtype="<U1"))
         ap = (df["wlan.sa"] == df["wlan.bssid"]).to_numpy() & df["wlan.bssid"].notna().to_numpy()
         parts["s_idx"].append(idx[ap])

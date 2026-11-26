@@ -262,6 +262,7 @@ python scripts/13_s5_transfer.py
 python scripts/14_s6_rules.py
 python scripts/15_s7_smote.py
 python scripts/16_rv2_80211_checks.py
+python scripts/17_rv3_file_format.py
 ```
 
 The whole pipeline takes more than a day on a laptop CPU. The long stages can be

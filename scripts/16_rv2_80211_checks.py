@@ -447,7 +447,7 @@ MAGIC = {b"PK\x03\x04": "zip", b"7z\xbc\xaf\x27\x1c": "7z", b"Rar!\x1a\x07": "ra
          b"\xfd7zXZ\x00": "xz", b"BZh": "bzip2", b"\xd4\xc3\xb2\xa1": "pcap", b"\x0a\x0d\x0d\x0a": "pcapng"}
 
 
-def describe_archive(path: Path) -> None:
+def describe_archive(path: Path) -> dict:
     """When zipfile cannot open the archive: its first bytes and the zip end records in its last MiB."""
     size = path.stat().st_size
     with open(path, "rb") as fh:
@@ -458,19 +458,25 @@ def describe_archive(path: Path) -> None:
     if kind == "unknown" and head[257:262] == b"ustar":
         kind = "tar"
     print(f"[RV2] {path.name}: {size:,} bytes; first bytes {head[:8].hex()} ({kind})")
+    out = {"archive": path.name, "bytes": size, "first_bytes": head[:8].hex(), "format_from_first_bytes": kind,
+           "last_mib": {}}
     for name, sig in (("end of central directory", b"PK\x05\x06"), ("zip64 end record", b"PK\x06\x06"),
                       ("zip64 locator", b"PK\x06\x07"), ("central directory entries", b"PK\x01\x02"),
                       ("local file headers", b"PK\x03\x04")):
         pos = tail.rfind(sig)
         where = "none" if pos < 0 else f"{tail.count(sig)} found, last one {len(tail) - pos:,} bytes before the end"
         print(f"[RV2]   last MiB, {name}: {where}")
+        out["last_mib"][name] = {"found": tail.count(sig), "last_one_bytes_before_end": None if pos < 0 else len(tail) - pos}
+    return out
 
 
 def open_pcap_zip(paths: dict) -> zipfile.ZipFile:
     try:
         return zipfile.ZipFile(paths["awid3_pcap_zip"])
     except zipfile.BadZipFile:
-        describe_archive(paths["awid3_pcap_zip"])
+        diag = describe_archive(paths["awid3_pcap_zip"])
+        meta = run_metadata("scripts/16_rv2_80211_checks.py (pcap archive check)")
+        print(f"[RV2] written: {write_result('RV2_pcap_archive', {'results': diag}, meta)}")
         raise SystemExit("[RV2] the pcap archive cannot be opened as a zip; see the lines above")
 
 
