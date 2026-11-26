@@ -6,7 +6,8 @@ data/
 *.pcap
 *.pcapng
 
-# Local tooling
+# Local tooling and personal notes
+*.docx
 CLAUDE.md
 .claude/
 .vscode/

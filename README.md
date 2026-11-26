@@ -1,10 +1,12 @@
 # Intrusion Detection in Wi-Fi Networks: What Do Evil Twin Detectors Learn from Public 802.11 Datasets – the Attack, the Capture, or the Labelling Rule?
 
-**Kossi Tamplare**, GD Goenka University
+**Kossi Tamplare**, GD Goenka University  
+Advisor: Dr. Rajat Sharma, GD Goenka University
 
-_Status (21 November 2026): stages S0-S7 of the pre-registered protocol, the
-exploratory stages S4x and S4y and the perturbation test done. All results below are
-**preliminary**._
+_Status (26 November 2026): stages S0-S7 of the pre-registered protocol, the
+exploratory stages S4x and S4y and the perturbation test done; the S8 analysis plan
+is written (journal, 22 November); 802.11 checks on the raw captures are in progress
+(exploratory). All results below are **preliminary**._
 
 ---
 
@@ -103,8 +105,13 @@ drops columns more than 99% empty, which this study also applied, removes them.
 All of these differences are set by the attacker's configuration: a better
 equipped attacker could copy them.
 
-**5. Random splits inflate the scores.** On Evil_Twin, PR-AUC rises from 0.90
-(blocked) to 0.998 (random split).
+**5. Random splits inflate the scores.** On Evil_Twin, the mean PR-AUC of the 84
+runs of S4 rises from 0.898 with the blocked evaluation to 0.998 with a random
+split. The 84 runs are 5 model families x 4 field sets x 5 seeds (1 seed for the
+deterministic logistic regression); the score of a blocked run is the mean of its
+5 test blocks. Source: [`results/S4_reliance.json`](results/S4_reliance.json),
+entry `H2b`. S8 recomputes this comparison with one value per model and field set
+(journal, 22 November).
 
 **6. Attribution shows where a model looks, not what it depends on.** Most of
 the attribution goes to capture artefacts, yet removing them costs less than
@@ -205,7 +212,61 @@ discarded by a common cleaning step.
 | S5 | H3a - transfer AWID3 <-> AWID2 | Done |
 | S6 | H3b - rule baseline | Done |
 | S7 | H4 - imbalance probe | Done |
-| S8 | Statistics, figures, paper | Planned |
+| - | 802.11 checks on the raw captures (exploratory) | In progress |
+| S8 | Statistics, figures, paper | Analysis plan written (journal, 22 November); not run |
+
+## Quick start
+
+The results were produced on Windows 11 with Python 3.11.5. The code uses no
+Windows-specific path, and the unit tests run on Linux and Windows with GitHub
+Actions at every push ([`.github/workflows/tests.yml`](.github/workflows/tests.yml)).
+macOS has not been tested; XGBoost needs OpenMP there (`brew install libomp`).
+
+```bash
+git clone https://github.com/MarcelKossi/evil-twin-rogue-ap-shortcut-audit.git
+cd evil-twin-rogue-ap-shortcut-audit
+python -m venv .venv
+source .venv/bin/activate          # Linux, macOS
+# .venv\Scripts\activate.bat     # Windows (cmd)
+python -m pip install -r requirements.txt pytest==8.3.3
+python -m pytest -q                # unit tests on synthetic data, no dataset needed
+```
+
+To reproduce the results, place the datasets as in
+[`configs/paths.yaml`](configs/paths.yaml) (see [Data](#data)):
+
+| Path | Content | Needed by |
+|---|---|---|
+| `data/AWID3_Dataset_CSV.zip` | AWID3, CSV release | every stage |
+| `data/DATASET/DATASET/AWID-ATK-R-Trn.tar.gz`, `AWID-ATK-R-Tst.tar.gz` | AWID2, reduced attack-level subsets | S5-S7 and the 802.11 checks |
+| `data/AWID3_Dataset.zip` | AWID3, pcap release | 802.11 checks (pcap part) only |
+
+Then run the scripts in order, from the repository root:
+
+```bash
+python scripts/00_inventory.py
+python scripts/01_to_parquet.py
+python scripts/02_filter_agreement.py
+python scripts/03_label_diagnostics.py
+python scripts/04_figures_labels.py
+python scripts/05_taxonomy_agreement.py
+python scripts/06_build_features.py
+python scripts/07_s3_label_rule.py
+python scripts/08_s4_reliance.py
+python scripts/09_s4x_field_detail.py
+python scripts/09_s4x_field_detail.py --beacons
+python scripts/10_perturbation.py
+python scripts/11_beacon_fields.py
+python scripts/12_s5_prepare.py
+python scripts/13_s5_transfer.py
+python scripts/14_s6_rules.py
+python scripts/15_s7_smote.py
+python scripts/16_rv2_80211_checks.py
+```
+
+The whole pipeline takes more than a day on a laptop CPU. The long stages can be
+stopped and restarted: finished runs are kept. [`RUNBOOK.md`](RUNBOOK.md) gives the
+output and the run time of every command, as I ran them.
 
 ## Repository guide
 
@@ -217,6 +278,7 @@ discarded by a common cleaning step.
 | `configs/paths.yaml` | Data locations, relative to the repository root |
 | `results/` | Machine-generated results behind every number (git commit, package versions, input SHA-256) |
 | `figures/` | Figures |
+| `tests/` | Unit tests on synthetic data (folds, frame-field helpers) |
 | [`RESULTS.md`](RESULTS.md) | Results in detail |
 | [`RUNBOOK.md`](RUNBOOK.md) | Every command, in order |
 
@@ -228,6 +290,11 @@ The datasets are not redistributed. They can be requested from the AWID project
 (University of the Aegean): AWID3 (CSV release) and AWID2 (reduced attack-level
 subsets AWID-ATK-R-Trn / AWID-ATK-R-Tst). Place them under `data/` as listed in
 `configs/paths.yaml`.
+
+## License
+
+Code and documents: MIT ([`LICENSE`](LICENSE)). The AWID datasets are not included
+and remain under the terms of their providers.
 
 ## References
 

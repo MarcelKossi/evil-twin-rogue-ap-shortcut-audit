@@ -1,8 +1,10 @@
 # Preliminary results
 
-*Status: 21 November 2026. Stages S0-S7 of the pre-registered protocol
+*Status: 26 November 2026. Stages S0-S7 of the pre-registered protocol
 ([`docs/protocol_v0.3.md`](docs/protocol_v0.3.md), tag `prereg-v0.3`), plus
-the exploratory stages S4x, S4y and the perturbation test. The first sections
+the exploratory stages S4x, S4y and the perturbation test. The 802.11 checks on
+the raw captures (exploratory, started on 25 November) are in the journal and not
+yet reported here. The first sections
 describe the labels of AWID3; the later sections describe detectors trained on
 them, their transfer to AWID2, a rule baseline and an imbalance probe.*
 
@@ -149,7 +151,10 @@ Mean PR-AUC, blocked protocol:
   which are mostly beacons.
 - F-sem also costs false alarms on clean traffic: 0.08-0.22% (Evil_Twin) and
   0.15-0.20% (Rogue_AP), against at most 0.03% and 0% with F-all.
-- **Random splits inflate the Evil_Twin scores**, from 0.898 to 0.998.
+- **Random splits inflate the Evil_Twin scores**, from 0.898 to 0.998: mean PR-AUC
+  of the 84 runs of the H2b test (5 model families x 4 field sets x 5 seeds, 1 seed
+  for the deterministic LR; the score of a blocked run is the mean of its 5 test
+  blocks), entry `H2b` of `results/S4_reliance.json`.
 - p-values are raw; Holm correction across the confirmatory family comes at
   the end. Permutation importance is computed for seed 0 only and is
   descriptive. The ARS part of H2b was tested on F-all only by the S4 script;

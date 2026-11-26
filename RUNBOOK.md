@@ -1,37 +1,37 @@
 # Runbook
 
-Commands for the Windows command prompt (cmd), run from the repository root.
-Each stage is run only after the output of the previous one has been checked.
+Commands as I ran them, in the Windows command prompt (cmd), from the repository
+root. On Linux and macOS the commands are the same except the activation of the
+virtual environment (see Quick start in the README). Each stage is run only after
+the output of the previous one has been checked.
 
-At the start of every session:
+At the start of every session, from the repository root:
 
 ```cmd
-cd /d D:\evil-twin-shorcut-audit
 .venv\Scripts\activate.bat
 ```
 
 ## 1. Environment (once)
 
 ```cmd
-cd /d D:\evil-twin-shorcut-audit
 python --version
 python -m venv .venv
 .venv\Scripts\activate.bat
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements.txt pytest==8.3.3
+python -m pytest -q
 ```
 
-## 2. Git and protocol freeze (once)
+`python -m pytest -q` runs the unit tests of `tests/` on synthetic data (no dataset needed).
+
+## 2. Protocol freeze (done once, kept as a record)
 
 ```cmd
-git init
-git branch -M main
-git remote add origin <repository-url>
 git add .
 git status
 git commit -m "Repository structure and protocol v0.3"
 git tag -a prereg-v0.3 -m "Protocol frozen before any experiment"
-git push -u origin main --tags
+git push origin main --tags
 ```
 
 `git status` must not list `data/`.
