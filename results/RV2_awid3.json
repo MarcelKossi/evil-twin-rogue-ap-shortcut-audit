@@ -1,0 +1,1377 @@
+{
+  "meta": {
+    "script": "scripts/16_rv2_80211_checks.py --part awid3",
+    "git_commit": "5c3c6978d3d74b6b87e5a3242dc4bbe72e169454",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-24T21:49:54+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": "2.1.1"
+    },
+    "inputs_sha256": {
+      "S6_rules.json": "c6481cc2065f949bd4bed5969473a1f3381b2ab553c859edf83b08e5d7d270e0",
+      "awid2_columns.txt": "ee49eea95dc853bb09e248cb167965ce6d898aad1f8d8be972d9dde902f319e9",
+      "S0_archive_hashes.json": "4bd3387a15ea2abc2361f35f789c8a33d055b9491b5dae71b858546485d89c9a"
+    },
+    "archive_bytes": {
+      "awid3_pcap_zip": 12063714960
+    }
+  },
+  "results": {
+    "awid3_rogue_ap": {
+      "reproduces_s6": {
+        "same_rows_as_s6_code": true,
+        "same_counts_as_s6_json": true
+      },
+      "profile_fields": [
+        "wlan.fixed.capabilities.ess",
+        "wlan.fixed.capabilities.ibss",
+        "wlan.rsn.capabilities.mfpc",
+        "wlan.rsn.ie.gtk.key",
+        "wlan.rsn.ie.igtk.key",
+        "wlan.rsn.ie.pmkid"
+      ],
+      "reference": {
+        "announcements": 634,
+        "known_ssids": [
+          "ASUS_5G"
+        ],
+        "whitelist": [
+          "0c:9d:92:54:fe:34"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "alarms": {
+        "R1": {
+          "fires": 0,
+          "on_normal": 0,
+          "on_attack": 0,
+          "normal": {
+            "subtype": {},
+            "bssid": {},
+            "source": {},
+            "destination": {},
+            "frame_len": {},
+            "ssid": {},
+            "inside_attack_window": 0
+          }
+        },
+        "R2": {
+          "fires": 4648,
+          "on_normal": 3338,
+          "on_attack": 1310,
+          "normal": {
+            "subtype": {
+              "8 (beacon)": 2521,
+              "5 (probe resp)": 817
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:34": 3338
+            },
+            "source": {
+              "0c:9d:92:54:fe:34": 3338
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 2521,
+              "24:f5:a2:ea:86:c3": 329,
+              "00:c0:ca:a8:26:3e": 240,
+              "00:c0:ca:a8:29:56": 155,
+              "50:3e:aa:e4:01:93": 47
+            },
+            "frame_len": {
+              "342": 2127,
+              "263": 454,
+              "343": 394,
+              "336": 363
+            },
+            "ssid": {
+              "ASUS_5G": 3338
+            },
+            "inside_attack_window": 2506
+          },
+          "profile_difference": {
+            "differing_fields": [
+              {
+                "label": "Normal",
+                "fields": "wlan.fixed.capabilities.ess + wlan.fixed.capabilities.ibss + wlan.rsn.capabilities.mfpc",
+                "n": 3338
+              },
+              {
+                "label": "Rogue_AP",
+                "fields": "wlan.fixed.capabilities.ess + wlan.fixed.capabilities.ibss + wlan.rsn.capabilities.mfpc",
+                "n": 1310
+              }
+            ],
+            "values_alarm_vs_reference": [
+              {
+                "label": "Normal",
+                "field": "wlan.fixed.capabilities.ess",
+                "alarm": "1",
+                "reference": "1.0",
+                "n": 3338
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.fixed.capabilities.ibss",
+                "alarm": "0",
+                "reference": "0.0",
+                "n": 3338
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "1",
+                "reference": "1.0",
+                "n": 2884
+              },
+              {
+                "label": "Rogue_AP",
+                "field": "wlan.fixed.capabilities.ess",
+                "alarm": "1",
+                "reference": "1.0",
+                "n": 1310
+              },
+              {
+                "label": "Rogue_AP",
+                "field": "wlan.fixed.capabilities.ibss",
+                "alarm": "0",
+                "reference": "0.0",
+                "n": 1310
+              },
+              {
+                "label": "Rogue_AP",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "0",
+                "reference": "1.0",
+                "n": 1310
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "0",
+                "reference": "1.0",
+                "n": 454
+              }
+            ]
+          }
+        },
+        "R3": {
+          "fires": 7363,
+          "on_normal": 7105,
+          "on_attack": 258,
+          "normal": {
+            "subtype": {
+              "12 (deauth)": 3165,
+              "13 (action)": 1906,
+              "8 (beacon)": 1430,
+              "5 (probe resp)": 383,
+              "40 (QoS data)": 66,
+              "36 (null)": 46,
+              "44 (QoS null)": 42,
+              "3 (?)": 22,
+              "11 (auth)": 20,
+              "32 (data)": 18
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:34": 7105
+            },
+            "source": {
+              "0c:9d:92:54:fe:34": 7105
+            },
+            "destination": {
+              "a4:b1:c1:91:4c:72": 2101,
+              "88:66:a5:55:a2:d4": 1607,
+              "ff:ff:ff:ff:ff:ff": 1431,
+              "b4:ce:40:c8:33:81": 527,
+              "24:f5:a2:ea:86:c3": 523
+            },
+            "frame_len": {
+              "86": 3208,
+              "104": 1747,
+              "342": 1127,
+              "343": 303,
+              "336": 223,
+              "263": 160,
+              "109": 148,
+              "84": 46,
+              "90": 17,
+              "93": 14
+            },
+            "ssid": {
+              "None": 5292,
+              "ASUS_5G": 1813
+            },
+            "inside_attack_window": 6982,
+            "previous_frame": {
+              "label": {
+                "Normal": 6580,
+                "Rogue_AP": 525
+              },
+              "subtype": {
+                "12 (deauth)": 2976,
+                "8 (beacon)": 1863,
+                "13 (action)": 1651,
+                "5 (probe resp)": 330,
+                "32 (data)": 91,
+                "40 (QoS data)": 67,
+                "44 (QoS null)": 38,
+                "36 (null)": 29,
+                "11 (auth)": 25,
+                "3 (?)": 16
+              },
+              "frame_len": {
+                "86": 3018,
+                "104": 1511,
+                "342": 1049,
+                "263": 632,
+                "343": 289,
+                "336": 223,
+                "109": 139,
+                "138": 78,
+                "84": 29,
+                "90": 13
+              }
+            },
+            "seq_jump": {
+              "n": 7105,
+              "missing": 0,
+              "p10": 416.0,
+              "median": 2246.0,
+              "p90": 3817.0
+            },
+            "seconds_since_previous": {
+              "n": 7105,
+              "missing": 0,
+              "p10": 0.0,
+              "median": 0.0,
+              "p90": 0.0
+            }
+          }
+        },
+        "R4": {
+          "fires": 1408,
+          "on_normal": 228,
+          "on_attack": 1180,
+          "normal": {
+            "subtype": {
+              "5 (probe resp)": 222,
+              "8 (beacon)": 6
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:34": 228
+            },
+            "source": {
+              "0c:9d:92:54:fe:34": 228
+            },
+            "destination": {
+              "24:f5:a2:ea:86:c3": 138,
+              "00:c0:ca:a8:26:3e": 36,
+              "00:c0:ca:a8:29:56": 18,
+              "50:3e:aa:e4:01:93": 13,
+              "ff:ff:ff:ff:ff:ff": 6
+            },
+            "frame_len": {
+              "263": 222,
+              "342": 4,
+              "343": 2
+            },
+            "ssid": {
+              "ASUS_5G": 228
+            },
+            "inside_attack_window": 222,
+            "previous_frame": {
+              "label": {
+                "Normal": 228
+              },
+              "subtype": {
+                "5 (probe resp)": 206,
+                "8 (beacon)": 22
+              },
+              "frame_len": {
+                "336": 206,
+                "342": 17,
+                "343": 5
+              }
+            }
+          }
+        }
+      },
+      "deauth_disassoc": {
+        "frames": 62493,
+        "by_label": {
+          "Normal": 62493
+        },
+        "reason_code_by_label": {
+          "Normal": {
+            "7": 62464,
+            "9": 23,
+            "7.0": 3,
+            "3": 2,
+            "2": 1
+          }
+        },
+        "groups": [
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "a4:b1:c1:91:4c:72",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 55434
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "24:f5:a2:ea:86:c3",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 3230
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "88:66:a5:55:a2:d4",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1794
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "a4:08:ea:2a:9a:01",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1379
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "b4:ce:40:c8:33:81",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 606
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "94:e9:79:82:c5:77",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 12
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e4:01:93",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 7
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:29:56",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 7
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:26:3e",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 7
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:29:56",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 3
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:26:3e",
+            "wlan.fixed.reason_code": "7.0",
+            "in_window": "False",
+            "n": 3
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e4:01:93",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 2
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:26:3e",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 2
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e3:1f:be",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "94:e9:79:82:c5:77",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "2",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "94:e9:79:82:c5:77",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "94:e9:79:82:c5:77",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "3",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e3:1f:be",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "ff:ff:ff:ff:ff:ff",
+            "wlan.fixed.reason_code": "3",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "94:e9:79:82:c5:77",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 1
+          }
+        ],
+        "signal_by_source": [
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "0c:9d:92:54:fe:34",
+            "signal_dbm": {
+              "n": 62456,
+              "missing": 0,
+              "p10": -42.0,
+              "median": -40.0,
+              "p90": -39.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "source": "0c:9d:92:54:fe:34",
+            "signal_dbm": {
+              "n": 34,
+              "missing": 0,
+              "p10": -37.0,
+              "median": -37.0,
+              "p90": -36.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "94:e9:79:82:c5:77",
+            "signal_dbm": {
+              "n": 3,
+              "missing": 0,
+              "p10": -68.8,
+              "median": -68.0,
+              "p90": -68.0
+            }
+          }
+        ],
+        "signal_of_announcements_in_attack_window": [
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "342",
+            "signal_dbm": {
+              "n": 1351,
+              "missing": 0,
+              "p10": -38.0,
+              "median": -36.0,
+              "p90": -35.0
+            }
+          },
+          {
+            "label": "Rogue_AP",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "263",
+            "signal_dbm": {
+              "n": 1310,
+              "missing": 0,
+              "p10": -42.0,
+              "median": -40.0,
+              "p90": -39.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "263",
+            "signal_dbm": {
+              "n": 454,
+              "missing": 0,
+              "p10": -41.0,
+              "median": -40.0,
+              "p90": -39.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "336",
+            "signal_dbm": {
+              "n": 362,
+              "missing": 0,
+              "p10": -33.0,
+              "median": -32.0,
+              "p90": -32.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "343",
+            "signal_dbm": {
+              "n": 339,
+              "missing": 0,
+              "p10": -37.0,
+              "median": -36.0,
+              "p90": -34.80000000000001
+            }
+          }
+        ]
+      }
+    },
+    "awid3_evil_twin": {
+      "reproduces_s6": {
+        "same_rows_as_s6_code": true,
+        "same_counts_as_s6_json": true
+      },
+      "profile_fields": [
+        "wlan.fixed.capabilities.ess",
+        "wlan.fixed.capabilities.ibss",
+        "wlan.rsn.capabilities.mfpc",
+        "wlan.rsn.ie.gtk.key",
+        "wlan.rsn.ie.igtk.key",
+        "wlan.rsn.ie.pmkid"
+      ],
+      "reference": {
+        "announcements": 631,
+        "known_ssids": [
+          "ASUS_5G"
+        ],
+        "whitelist": [
+          "0c:9d:92:54:fe:34"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "alarms": {
+        "R1": {
+          "fires": 4366,
+          "on_normal": 772,
+          "on_attack": 3594,
+          "normal": {
+            "subtype": {
+              "5 (probe resp)": 564,
+              "8 (beacon)": 208
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:35": 772
+            },
+            "source": {
+              "0c:9d:92:54:fe:35": 772
+            },
+            "destination": {
+              "00:c0:ca:a8:29:56": 433,
+              "ff:ff:ff:ff:ff:ff": 208,
+              "24:f5:a2:ea:86:c3": 78,
+              "88:66:a5:55:a2:d4": 19,
+              "a4:08:ea:2a:9a:01": 16
+            },
+            "frame_len": {
+              "150": 605,
+              "241": 167
+            },
+            "ssid": {
+              "ASUS_5G": 772
+            },
+            "inside_attack_window": 701
+          }
+        },
+        "R2": {
+          "fires": 4874,
+          "on_normal": 1280,
+          "on_attack": 3594,
+          "normal": {
+            "subtype": {
+              "8 (beacon)": 694,
+              "5 (probe resp)": 586
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:35": 772,
+              "0c:9d:92:54:fe:34": 508
+            },
+            "source": {
+              "0c:9d:92:54:fe:35": 772,
+              "0c:9d:92:54:fe:34": 508
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 694,
+              "00:c0:ca:a8:29:56": 433,
+              "24:f5:a2:ea:86:c3": 93,
+              "88:66:a5:55:a2:d4": 23,
+              "a4:08:ea:2a:9a:01": 16
+            },
+            "frame_len": {
+              "150": 605,
+              "342": 422,
+              "241": 167,
+              "343": 64,
+              "336": 22
+            },
+            "ssid": {
+              "ASUS_5G": 1280
+            },
+            "inside_attack_window": 701
+          },
+          "profile_difference": {
+            "differing_fields": [
+              {
+                "label": "Evil_Twin",
+                "fields": "wlan.rsn.capabilities.mfpc",
+                "n": 3594
+              },
+              {
+                "label": "Normal",
+                "fields": "wlan.rsn.capabilities.mfpc",
+                "n": 772
+              },
+              {
+                "label": "Normal",
+                "fields": "wlan.fixed.capabilities.ess + wlan.fixed.capabilities.ibss + wlan.rsn.capabilities.mfpc",
+                "n": 508
+              }
+            ],
+            "values_alarm_vs_reference": [
+              {
+                "label": "Evil_Twin",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "0",
+                "reference": "1",
+                "n": 1810
+              },
+              {
+                "label": "Evil_Twin",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "-",
+                "reference": "1",
+                "n": 1784
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "0",
+                "reference": "1",
+                "n": 605
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.fixed.capabilities.ess",
+                "alarm": "1.0",
+                "reference": "1",
+                "n": 508
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.fixed.capabilities.ibss",
+                "alarm": "0.0",
+                "reference": "0",
+                "n": 508
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "1.0",
+                "reference": "1",
+                "n": 508
+              },
+              {
+                "label": "Normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "-",
+                "reference": "1",
+                "n": 167
+              }
+            ]
+          }
+        },
+        "R3": {
+          "fires": 3643,
+          "on_normal": 120,
+          "on_attack": 3523,
+          "normal": {
+            "subtype": {
+              "40 (QoS data)": 53,
+              "8 (beacon)": 43,
+              "13 (action)": 12,
+              "5 (probe resp)": 10,
+              "14 (?)": 2
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:34": 113,
+              "0c:9d:92:54:fe:35": 7
+            },
+            "source": {
+              "0c:9d:92:54:fe:34": 113,
+              "0c:9d:92:54:fe:35": 7
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 43,
+              "00:c0:ca:a8:29:56": 25,
+              "00:c0:ca:a8:26:3e": 9,
+              "b4:ce:40:c8:33:81": 8,
+              "24:f5:a2:ea:86:c3": 7
+            },
+            "frame_len": {
+              "342": 42,
+              "103": 11,
+              "215": 10,
+              "104": 9,
+              "281": 8,
+              "109": 6,
+              "1102": 5,
+              "336": 5,
+              "102": 4,
+              "241": 4
+            },
+            "ssid": {
+              "None": 67,
+              "ASUS_5G": 53
+            },
+            "inside_attack_window": 37,
+            "previous_frame": {
+              "label": {
+                "Normal": 113,
+                "Evil_Twin": 7
+              },
+              "subtype": {
+                "40 (QoS data)": 59,
+                "8 (beacon)": 32,
+                "1 (assoc resp)": 11,
+                "3 (?)": 8,
+                "5 (probe resp)": 5,
+                "13 (action)": 2,
+                "14 (?)": 2,
+                "32 (data)": 1
+              },
+              "frame_len": {
+                "342": 29,
+                "281": 27,
+                "233": 19,
+                "104": 7,
+                "103": 5,
+                "336": 5,
+                "159": 3,
+                "1102": 3,
+                "1602": 3,
+                "706": 2
+              }
+            },
+            "seq_jump": {
+              "n": 120,
+              "missing": 0,
+              "p10": 507.20000000000005,
+              "median": 2083.0,
+              "p90": 3781.2
+            },
+            "seconds_since_previous": {
+              "n": 120,
+              "missing": 0,
+              "p10": 0.0,
+              "median": 0.0,
+              "p90": 0.0
+            }
+          }
+        },
+        "R4": {
+          "fires": 5,
+          "on_normal": 3,
+          "on_attack": 2,
+          "normal": {
+            "subtype": {
+              "8 (beacon)": 3
+            },
+            "bssid": {
+              "0c:9d:92:54:fe:34": 3
+            },
+            "source": {
+              "0c:9d:92:54:fe:34": 3
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 3
+            },
+            "frame_len": {
+              "342": 3
+            },
+            "ssid": {
+              "ASUS_5G": 3
+            },
+            "inside_attack_window": 0,
+            "previous_frame": {
+              "label": {
+                "Normal": 3
+              },
+              "subtype": {
+                "8 (beacon)": 3
+              },
+              "frame_len": {
+                "342": 2,
+                "343": 1
+              }
+            }
+          }
+        }
+      },
+      "deauth_disassoc": {
+        "frames": 72,
+        "by_label": {
+          "Normal": 45,
+          "Evil_Twin": 27
+        },
+        "reason_code_by_label": {
+          "Evil_Twin": {
+            "8": 17,
+            "7": 7,
+            "3": 3
+          },
+          "Normal": {
+            "7": 15,
+            "1": 9,
+            "15": 7,
+            "9": 6,
+            "8": 5,
+            "3": 2,
+            "6": 1
+          }
+        },
+        "groups": [
+          {
+            "label": "Evil_Twin",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "00:c0:ca:a8:29:56",
+            "wlan.da": "0c:9d:92:54:fe:35",
+            "wlan.fixed.reason_code": "8",
+            "in_window": "True",
+            "n": 16
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:26:3e",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "False",
+            "n": 7
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:29:56",
+            "wlan.fixed.reason_code": "15",
+            "in_window": "True",
+            "n": 7
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:35",
+            "wlan.da": "a4:08:ea:2a:9a:01",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 6
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:29:56",
+            "wlan.fixed.reason_code": "9",
+            "in_window": "True",
+            "n": 6
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "00:c0:ca:a8:29:56",
+            "wlan.da": "0c:9d:92:54:fe:35",
+            "wlan.fixed.reason_code": "8",
+            "in_window": "True",
+            "n": 4
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:35",
+            "wlan.da": "ff:ff:ff:ff:ff:ff",
+            "wlan.fixed.reason_code": "3",
+            "in_window": "True",
+            "n": 3
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "00:c0:ca:a8:29:56",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "1",
+            "in_window": "False",
+            "n": 3
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "00:c0:ca:a8:26:3e",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "1",
+            "in_window": "False",
+            "n": 3
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e3:1f:be",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "False",
+            "n": 2
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "00:c0:ca:a8:29:56",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "1",
+            "in_window": "True",
+            "n": 2
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:26:3e",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 2
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "00:c0:ca:a8:26:3e",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "1",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "a4:08:ea:2a:9a:01",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "50:3e:aa:e4:01:93",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:35",
+            "wlan.da": "5a:d5:e5:2e:bb:f2",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "00:c0:ca:a8:29:56",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "b4:ce:40:c8:33:81",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "3",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "a4:08:ea:2a:9a:01",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "6",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:35",
+            "wlan.da": "ff:ff:ff:ff:ff:ff",
+            "wlan.fixed.reason_code": "3",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "0c:9d:92:54:fe:34",
+            "wlan.da": "b4:ce:40:c8:33:81",
+            "wlan.fixed.reason_code": "7",
+            "in_window": "False",
+            "n": 1
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "0",
+            "wlan.sa": "a4:08:ea:2a:9a:01",
+            "wlan.da": "0c:9d:92:54:fe:35",
+            "wlan.fixed.reason_code": "8",
+            "in_window": "True",
+            "n": 1
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "wlan.fc.protected": "1",
+            "wlan.sa": "a4:08:ea:2a:9a:01",
+            "wlan.da": "0c:9d:92:54:fe:34",
+            "wlan.fixed.reason_code": "8",
+            "in_window": "True",
+            "n": 1
+          }
+        ],
+        "signal_by_source": [
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "source": "0c:9d:92:54:fe:34",
+            "signal_dbm": {
+              "n": 20,
+              "missing": 0,
+              "p10": -34.0,
+              "median": -33.0,
+              "p90": -33.0
+            }
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "disassoc",
+            "source": "00:c0:ca:a8:29:56",
+            "signal_dbm": {
+              "n": 16,
+              "missing": 0,
+              "p10": -80.5,
+              "median": -76.0,
+              "p90": -75.0
+            }
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "deauth",
+            "source": "0c:9d:92:54:fe:35",
+            "signal_dbm": {
+              "n": 10,
+              "missing": 0,
+              "p10": -45.0,
+              "median": -45.0,
+              "p90": -43.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "source": "00:c0:ca:a8:29:56",
+            "signal_dbm": {
+              "n": 9,
+              "missing": 0,
+              "p10": -76.2,
+              "median": -67.0,
+              "p90": -62.8
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "0c:9d:92:54:fe:34",
+            "signal_dbm": {
+              "n": 8,
+              "missing": 0,
+              "p10": -34.0,
+              "median": -34.0,
+              "p90": -33.7
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "disassoc",
+            "source": "00:c0:ca:a8:26:3e",
+            "signal_dbm": {
+              "n": 4,
+              "missing": 0,
+              "p10": -64.0,
+              "median": -64.0,
+              "p90": -63.3
+            }
+          },
+          {
+            "label": "Evil_Twin",
+            "subtype": "disassoc",
+            "source": "a4:08:ea:2a:9a:01",
+            "signal_dbm": {
+              "n": 1,
+              "missing": 0,
+              "p10": -70.0,
+              "median": -70.0,
+              "p90": -70.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "0c:9d:92:54:fe:35",
+            "signal_dbm": {
+              "n": 1,
+              "missing": 0,
+              "p10": -44.0,
+              "median": -44.0,
+              "p90": -44.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "a4:08:ea:2a:9a:01",
+            "signal_dbm": {
+              "n": 1,
+              "missing": 0,
+              "p10": -50.0,
+              "median": -50.0,
+              "p90": -50.0
+            }
+          },
+          {
+            "label": "Normal",
+            "subtype": "deauth",
+            "source": "b4:ce:40:c8:33:81",
+            "signal_dbm": {
+              "n": 1,
+              "missing": 0,
+              "p10": -60.0,
+              "median": -60.0,
+              "p90": -60.0
+            }
+          }
+        ],
+        "signal_of_announcements_in_attack_window": [
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "342",
+            "signal_dbm": {
+              "n": 4191,
+              "missing": 0,
+              "p10": -34.0,
+              "median": -33.0,
+              "p90": -33.0
+            }
+          },
+          {
+            "label": "Evil_Twin",
+            "bssid": "0c:9d:92:54:fe:35",
+            "frame_len": "150",
+            "signal_dbm": {
+              "n": 1810,
+              "missing": 0,
+              "p10": -46.0,
+              "median": -44.0,
+              "p90": -42.0
+            }
+          },
+          {
+            "label": "Evil_Twin",
+            "bssid": "0c:9d:92:54:fe:35",
+            "frame_len": "241",
+            "signal_dbm": {
+              "n": 1784,
+              "missing": 0,
+              "p10": -46.0,
+              "median": -43.0,
+              "p90": -41.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:35",
+            "frame_len": "150",
+            "signal_dbm": {
+              "n": 605,
+              "missing": 0,
+              "p10": -45.0,
+              "median": -43.0,
+              "p90": -42.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "343",
+            "signal_dbm": {
+              "n": 298,
+              "missing": 0,
+              "p10": -34.0,
+              "median": -33.0,
+              "p90": -33.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:34",
+            "frame_len": "336",
+            "signal_dbm": {
+              "n": 274,
+              "missing": 0,
+              "p10": -29.0,
+              "median": -29.0,
+              "p90": -29.0
+            }
+          },
+          {
+            "label": "Normal",
+            "bssid": "0c:9d:92:54:fe:35",
+            "frame_len": "241",
+            "signal_dbm": {
+              "n": 96,
+              "missing": 0,
+              "p10": -45.0,
+              "median": -44.0,
+              "p90": -42.0
+            }
+          }
+        ]
+      }
+    }
+  }
+}

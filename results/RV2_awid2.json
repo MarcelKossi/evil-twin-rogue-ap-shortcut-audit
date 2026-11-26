@@ -1,0 +1,1075 @@
+{
+  "meta": {
+    "script": "scripts/16_rv2_80211_checks.py --part awid2",
+    "git_commit": "5c3c6978d3d74b6b87e5a3242dc4bbe72e169454",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-24T21:53:37+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": "2.1.1"
+    },
+    "inputs_sha256": {
+      "S6_rules.json": "c6481cc2065f949bd4bed5969473a1f3381b2ab553c859edf83b08e5d7d270e0",
+      "awid2_columns.txt": "ee49eea95dc853bb09e248cb167965ce6d898aad1f8d8be972d9dde902f319e9",
+      "S0_archive_hashes.json": "4bd3387a15ea2abc2361f35f789c8a33d055b9491b5dae71b858546485d89c9a"
+    },
+    "archive_bytes": {
+      "awid3_pcap_zip": 12063714960
+    }
+  },
+  "results": {
+    "s6_version_kept_rows": {
+      "reproduces_s6": {
+        "same_rows_as_s6_code": true,
+        "same_counts_as_s6_json": true
+      },
+      "alarms": {
+        "R1": {
+          "fires": 5,
+          "on_normal": 5,
+          "on_attack": 0,
+          "normal": {
+            "subtype": {
+              "5 (probe resp)": 5
+            },
+            "bssid": {
+              "fc:0a:81:76:3d:a0": 5
+            },
+            "source": {
+              "fc:0a:81:76:3d:a0": 5
+            },
+            "destination": {
+              "00:0f:04:b3:3b:88": 5
+            },
+            "frame_len": {
+              "233": 5
+            },
+            "ssid": {
+              "mhxskl140": 5
+            }
+          }
+        },
+        "R2": {
+          "fires": 7775,
+          "on_normal": 6014,
+          "on_attack": 1761,
+          "normal": {
+            "subtype": {
+              "8 (beacon)": 5311,
+              "5 (probe resp)": 703
+            },
+            "bssid": {
+              "b0:48:7a:e2:62:23": 6001,
+              "00:1d:19:88:e4:a8": 9,
+              "28:c6:8e:86:d3:d6": 4
+            },
+            "source": {
+              "b0:48:7a:e2:62:23": 6001,
+              "00:1d:19:88:e4:a8": 9,
+              "28:c6:8e:86:d3:d6": 4
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 5311,
+              "20:64:32:54:c9:da": 210,
+              "00:25:bc:ed:07:cf": 156,
+              "a8:16:b2:8d:73:9b": 59,
+              "00:18:de:1a:c1:df": 54
+            },
+            "frame_len": {
+              "261": 5307,
+              "255": 694,
+              "99": 9,
+              "87": 4
+            },
+            "ssid": {
+              "pnet": 6001,
+              "tsoureas": 9,
+              "nan": 4
+            }
+          },
+          "profile_difference": {
+            "differing_fields": [
+              {
+                "label": "normal",
+                "fields": "wlan.fixed.capabilities.short_slot_time",
+                "n": 6001
+              },
+              {
+                "label": "evil_twin",
+                "fields": "wlan.fixed.capabilities.privacy",
+                "n": 1761
+              },
+              {
+                "label": "normal",
+                "fields": "wlan.fixed.capabilities.pbcc",
+                "n": 9
+              },
+              {
+                "label": "normal",
+                "fields": "wlan.rsn.akms.count + wlan.rsn.akms.type + wlan.rsn.capabilities.gtksa_replay_counter + wlan.rsn.capabilities.mfpc + wlan.rsn.capabilities.mfpr + wlan.rsn.capabilities.no_pairwise + wlan.rsn.capabilities.peerkey + wlan.rsn.capabilities.preauth + wlan.rsn.capabilities.ptksa_replay_counter + wlan.rsn.gcs.type + wlan.rsn.pcs.count + wlan.rsn.version",
+                "n": 3
+              },
+              {
+                "label": "normal",
+                "fields": "wlan.fixed.capabilities.privacy + wlan.rsn.akms.count + wlan.rsn.akms.type + wlan.rsn.capabilities.gtksa_replay_counter + wlan.rsn.capabilities.mfpc + wlan.rsn.capabilities.mfpr + wlan.rsn.capabilities.no_pairwise + wlan.rsn.capabilities.peerkey + wlan.rsn.capabilities.preauth + wlan.rsn.capabilities.ptksa_replay_counter + wlan.rsn.gcs.type + wlan.rsn.pcs.count + wlan.rsn.version",
+                "n": 1
+              }
+            ],
+            "values_alarm_vs_reference": [
+              {
+                "label": "normal",
+                "field": "wlan.fixed.capabilities.short_slot_time",
+                "alarm": "0",
+                "reference": "1",
+                "n": 6001
+              },
+              {
+                "label": "evil_twin",
+                "field": "wlan.fixed.capabilities.privacy",
+                "alarm": "0",
+                "reference": "1",
+                "n": 1761
+              },
+              {
+                "label": "normal",
+                "field": "wlan.fixed.capabilities.pbcc",
+                "alarm": "1",
+                "reference": "0",
+                "n": 9
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.akms.count",
+                "alarm": "-",
+                "reference": "1",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.akms.type",
+                "alarm": "-",
+                "reference": "2",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.gtksa_replay_counter",
+                "alarm": "-",
+                "reference": "0x0000",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.mfpc",
+                "alarm": "-",
+                "reference": "0",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.mfpr",
+                "alarm": "-",
+                "reference": "0",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.no_pairwise",
+                "alarm": "-",
+                "reference": "0",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.peerkey",
+                "alarm": "-",
+                "reference": "0",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.preauth",
+                "alarm": "-",
+                "reference": "0",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.capabilities.ptksa_replay_counter",
+                "alarm": "-",
+                "reference": "0x0000",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.gcs.type",
+                "alarm": "-",
+                "reference": "2",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.pcs.count",
+                "alarm": "-",
+                "reference": "1",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.rsn.version",
+                "alarm": "-",
+                "reference": "1",
+                "n": 4
+              },
+              {
+                "label": "normal",
+                "field": "wlan.fixed.capabilities.privacy",
+                "alarm": "0",
+                "reference": "1",
+                "n": 1
+              }
+            ]
+          }
+        },
+        "R3": {
+          "fires": 16752,
+          "on_normal": 14123,
+          "on_attack": 2629,
+          "normal": {
+            "subtype": {
+              "8 (beacon)": 6723,
+              "32 (data)": 2024,
+              "12 (deauth)": 1829,
+              "5 (probe resp)": 1744,
+              "1 (assoc resp)": 778,
+              "36 (null)": 537,
+              "11 (auth)": 451,
+              "10 (disassoc)": 12,
+              "13 (action)": 11,
+              "3 (?)": 11
+            },
+            "bssid": {
+              "00:13:33:87:62:6d": 4917,
+              "b0:48:7a:e2:62:23": 4524,
+              "28:c6:8e:86:d3:d6": 4434,
+              "8c:e0:81:91:7e:70": 66,
+              "48:28:2f:35:17:ba": 63,
+              "38:22:9d:ae:c5:65": 46,
+              "38:22:9d:c4:8d:28": 31,
+              "00:1d:19:88:e4:a8": 12,
+              "54:22:f8:20:c1:bc": 11,
+              "fc:0a:81:0f:dc:70": 8
+            },
+            "source": {
+              "00:13:33:87:62:6d": 4917,
+              "b0:48:7a:e2:62:23": 4524,
+              "28:c6:8e:86:d3:d6": 4434,
+              "8c:e0:81:91:7e:70": 66,
+              "48:28:2f:35:17:ba": 63,
+              "38:22:9d:ae:c5:65": 46,
+              "38:22:9d:c4:8d:28": 31,
+              "00:1d:19:88:e4:a8": 12,
+              "54:22:f8:20:c1:bc": 11,
+              "fc:0a:81:0f:dc:70": 8
+            },
+            "destination": {
+              "ff:ff:ff:ff:ff:ff": 6856,
+              "20:64:32:54:c9:da": 2195,
+              "00:25:bc:ed:07:cf": 1886,
+              "b0:48:7a:e2:64:af": 1216,
+              "01:00:5e:00:00:01": 261
+            },
+            "frame_len": {
+              "159": 2313,
+              "148": 2287,
+              "261": 2031,
+              "56": 1844,
+              "255": 1303,
+              "1560": 903,
+              "237": 774,
+              "54": 537,
+              "60": 397,
+              "128": 347
+            },
+            "ssid": {
+              "nan": 5668,
+              "pnet": 3295,
+              "AegeanSecLab": 2533,
+              "OTE29224e": 2419,
+              "Roma pizza": 63
+            },
+            "previous_frame": {
+              "label": {
+                "normal": 11593,
+                "evil_twin": 2530
+              },
+              "subtype": {
+                "8 (beacon)": 8661,
+                "32 (data)": 2051,
+                "5 (probe resp)": 1605,
+                "1 (assoc resp)": 933,
+                "36 (null)": 534,
+                "11 (auth)": 255,
+                "12 (deauth)": 37,
+                "44 (QoS null)": 16,
+                "3 (?)": 11,
+                "13 (action)": 10
+              },
+              "frame_len": {
+                "99": 2336,
+                "159": 2252,
+                "261": 2143,
+                "148": 1785,
+                "255": 1192,
+                "237": 915,
+                "1560": 768,
+                "54": 534,
+                "128": 342,
+                "60": 230
+              }
+            },
+            "seq_jump": {
+              "n": 14123,
+              "missing": 0,
+              "p10": 724.0,
+              "median": 2468.0,
+              "p90": 4095.0
+            },
+            "seconds_since_previous": {
+              "n": 14123,
+              "missing": 0,
+              "p10": 0.0004961490631103516,
+              "median": 0.015266895294189453,
+              "p90": 0.09482669830322266
+            }
+          }
+        },
+        "R4": {
+          "fires": 4813,
+          "on_normal": 2299,
+          "on_attack": 2514,
+          "normal": {
+            "subtype": {
+              "5 (probe resp)": 2284,
+              "8 (beacon)": 15
+            },
+            "bssid": {
+              "b0:48:7a:e2:62:23": 956,
+              "38:22:9d:ae:c5:65": 871,
+              "38:22:9d:c4:8d:28": 459,
+              "28:c6:8e:86:d3:d6": 4,
+              "00:05:59:46:36:7a": 3,
+              "00:05:59:2c:98:63": 2,
+              "00:13:33:87:62:6d": 2,
+              "dc:02:8e:7f:39:5e": 1,
+              "00:05:59:1d:1d:cc": 1
+            },
+            "source": {
+              "b0:48:7a:e2:62:23": 956,
+              "38:22:9d:ae:c5:65": 871,
+              "38:22:9d:c4:8d:28": 459,
+              "28:c6:8e:86:d3:d6": 4,
+              "00:05:59:46:36:7a": 3,
+              "00:05:59:2c:98:63": 2,
+              "00:13:33:87:62:6d": 2,
+              "dc:02:8e:7f:39:5e": 1,
+              "00:05:59:1d:1d:cc": 1
+            },
+            "destination": {
+              "20:64:32:54:c9:da": 294,
+              "00:18:de:1a:c1:df": 268,
+              "00:25:bc:ed:07:cf": 254,
+              "00:1e:e5:9c:1d:1b": 250,
+              "94:ce:2c:25:c9:aa": 190
+            },
+            "frame_len": {
+              "179": 1330,
+              "255": 947,
+              "261": 9,
+              "87": 4,
+              "286": 3,
+              "192": 2,
+              "159": 1,
+              "153": 1,
+              "327": 1,
+              "184": 1
+            },
+            "ssid": {
+              "pnet": 956,
+              "CYTA C565": 871,
+              "CYTA 8D28": 459,
+              "nan": 4,
+              "hol - NetFasteR WLAN 3": 3
+            },
+            "previous_frame": {
+              "label": {
+                "normal": 2299
+              },
+              "subtype": {
+                "8 (beacon)": 2297,
+                "5 (probe resp)": 2
+              },
+              "frame_len": {
+                "185": 1330,
+                "261": 954,
+                "148": 4,
+                "292": 3,
+                "255": 2,
+                "198": 2,
+                "159": 2,
+                "327": 1,
+                "190": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "all_rows": {
+      "rows": 2371218,
+      "classes": {
+        "normal": 2163975,
+        "arp": 78253,
+        "cafe_latte": 46268,
+        "amok": 31657,
+        "hirte": 19089,
+        "deauthentication": 14892,
+        "authentication_request": 3500,
+        "evil_twin": 3244,
+        "chop_chop": 2871,
+        "beacon": 2398,
+        "cts": 1759,
+        "probe_response": 1558,
+        "fragmentation": 937,
+        "probe_request": 369,
+        "rts": 199,
+        "power_saving": 165,
+        "disassociation": 84
+      },
+      "reference": {
+        "announcements": 2571,
+        "known_ssids": [
+          "AegeanSecLab",
+          "CYTA 8D28",
+          "CYTA C565",
+          "Hol Gounaris",
+          "NetFasteR IAD 2 (PSTN)",
+          "OTE29224e",
+          "Oxygen-13010",
+          "Roma pizza",
+          "conn-x7F395E",
+          "mhxskl140",
+          "pnet",
+          "tsoureas"
+        ],
+        "whitelist": [
+          "00:05:59:2c:98:63",
+          "00:05:59:2e:62:b8",
+          "00:13:33:87:62:6d",
+          "00:1d:19:88:e4:a8",
+          "00:1d:1c:9f:ba:4f",
+          "28:c6:8e:86:d3:d6",
+          "38:22:9d:ae:c5:65",
+          "38:22:9d:c4:8d:28",
+          "48:28:2f:35:17:ba",
+          "b0:48:7a:e2:62:23",
+          "dc:02:8e:7f:39:5e",
+          "fc:0a:81:0f:dc:70"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "scores_on_normal_and_evil_twin_rows": {
+        "prevalence": 0.0014968491878301177,
+        "pr_auc": 0.5323062121999105,
+        "roc_auc": 0.9492181379773195,
+        "frames": 2167219,
+        "attack": 3244,
+        "pr_auc_ET-B": 0.6431837832273557,
+        "attack_ET-B": 3205,
+        "pr_auc_ET-D": null,
+        "attack_ET-D": 0
+      },
+      "s6_pr_auc": 0.5424168047910517,
+      "fires_by_class": {
+        "R1": {
+          "normal": 5
+        },
+        "R2": {
+          "normal": 6014,
+          "evil_twin": 1761,
+          "probe_response": 6,
+          "beacon": 2
+        },
+        "R3": {
+          "normal": 26817,
+          "amok": 11313,
+          "evil_twin": 2650,
+          "cafe_latte": 1315,
+          "deauthentication": 937,
+          "hirte": 426
+        },
+        "R4": {
+          "evil_twin": 2514,
+          "normal": 2299,
+          "cafe_latte": 1259,
+          "hirte": 413
+        },
+        "R5": {
+          "normal": 181290,
+          "amok": 31620,
+          "deauthentication": 14755,
+          "disassociation": 75
+        }
+      }
+    },
+    "deauth_disassoc_all_rows": {
+      "frames": 228005,
+      "by_label": {
+        "normal": 181372,
+        "amok": 31657,
+        "deauthentication": 14892,
+        "disassociation": 84
+      },
+      "reason_code_by_label": {
+        "amok": {
+          "0x0001": 31657
+        },
+        "deauthentication": {
+          "0x0007": 14892
+        },
+        "disassociation": {
+          "0x0008": 84
+        },
+        "normal": {
+          "0x0007": 163625,
+          "0x0006": 17586,
+          "0x0003": 74,
+          "0x0001": 59,
+          "0x0002": 21,
+          "0x0008": 7
+        }
+      },
+      "groups": [
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "00:25:bc:ed:07:cf",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 163400
+        },
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "40:41:62:00:00:00",
+          "wlan.fixed.reason_code": "0x0006",
+          "n": 15435
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "ff:ff:ff:ff:ff:ff",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 9502
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "b0:48:7a:e2:62:23",
+          "wlan.da": "ff:ff:ff:ff:ff:ff",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 7001
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "ff:ff:ff:ff:ff:ff",
+          "wlan.da": "b0:48:7a:e2:62:23",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 6931
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "b0:48:7a:e2:62:23",
+          "wlan.da": "ff:ff:ff:ff:ff:ff",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 6872
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "ff:ff:ff:ff:ff:ff",
+          "wlan.da": "b0:48:7a:e2:62:23",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 6854
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "00:25:bc:ed:07:cf",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 1660
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "00:25:bc:ed:07:cf",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 1641
+        },
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "c0:18:85:94:b6:55",
+          "wlan.fixed.reason_code": "0x0006",
+          "n": 1111
+        },
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "0a:00:00:00:00:00",
+          "wlan.fixed.reason_code": "0x0006",
+          "n": 755
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "20:64:32:54:c9:da",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 416
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "20:64:32:54:c9:da",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 414
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "c0:18:85:94:b6:55",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 409
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "c0:18:85:94:b6:55",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 394
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "c0:18:85:94:b6:55",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 298
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "c0:18:85:94:b6:55",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 292
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "c0:18:85:94:b6:55",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 287
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "c0:18:85:94:b6:55",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 279
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "00:13:33:87:62:6d",
+          "wlan.da": "64:31:50:66:2e:b0",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 260
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "64:31:50:66:2e:b0",
+          "wlan.da": "00:13:33:87:62:6d",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 259
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "64:31:50:66:2e:b0",
+          "wlan.da": "00:13:33:87:62:6d",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 255
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "00:13:33:87:62:6d",
+          "wlan.da": "64:31:50:66:2e:b0",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 251
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "3c:5a:37:8c:9a:41",
+          "wlan.da": "28:c6:8e:86:d3:d6",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 230
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "3c:5a:37:8c:9a:41",
+          "wlan.fixed.reason_code": "0x0007",
+          "n": 226
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "38:22:9d:ae:c5:65",
+          "wlan.da": "00:1e:e5:9c:1d:1b",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 120
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "00:1e:e5:9c:1d:1b",
+          "wlan.da": "38:22:9d:ae:c5:65",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 119
+        },
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "28:c6:8e:86:d3:d6",
+          "wlan.da": "00:25:bc:ed:07:cf",
+          "wlan.fixed.reason_code": "0x0006",
+          "n": 117
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "00:1e:e5:9c:1d:1b",
+          "wlan.da": "38:22:9d:ae:c5:65",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 116
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "wlan.fc.protected": "0",
+          "wlan.sa": "38:22:9d:ae:c5:65",
+          "wlan.da": "00:1e:e5:9c:1d:1b",
+          "wlan.fixed.reason_code": "0x0001",
+          "n": 113
+        }
+      ],
+      "signal_by_source": [
+        {
+          "label": "normal",
+          "subtype": "deauth",
+          "source": "28:c6:8e:86:d3:d6",
+          "signal_dbm": {
+            "n": 181107,
+            "missing": 0,
+            "p10": -30.0,
+            "median": -27.0,
+            "p90": -25.0
+          }
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "source": "28:c6:8e:86:d3:d6",
+          "signal_dbm": {
+            "n": 12211,
+            "missing": 0,
+            "p10": -32.0,
+            "median": -24.0,
+            "p90": -22.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "source": "b0:48:7a:e2:62:23",
+          "signal_dbm": {
+            "n": 7068,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -30.0,
+            "p90": -24.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "source": "ff:ff:ff:ff:ff:ff",
+          "signal_dbm": {
+            "n": 7036,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -30.0,
+            "p90": -24.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "source": "ff:ff:ff:ff:ff:ff",
+          "signal_dbm": {
+            "n": 6959,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -30.0,
+            "p90": -23.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "source": "b0:48:7a:e2:62:23",
+          "signal_dbm": {
+            "n": 6942,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -30.0,
+            "p90": -23.099999999999454
+          }
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "source": "00:25:bc:ed:07:cf",
+          "signal_dbm": {
+            "n": 1641,
+            "missing": 0,
+            "p10": -24.0,
+            "median": -22.0,
+            "p90": -22.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "disassoc",
+          "source": "28:c6:8e:86:d3:d6",
+          "signal_dbm": {
+            "n": 448,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -29.0,
+            "p90": -20.0
+          }
+        },
+        {
+          "label": "amok",
+          "subtype": "deauth",
+          "source": "28:c6:8e:86:d3:d6",
+          "signal_dbm": {
+            "n": 432,
+            "missing": 0,
+            "p10": -36.0,
+            "median": -29.0,
+            "p90": -20.0
+          }
+        },
+        {
+          "label": "deauthentication",
+          "subtype": "deauth",
+          "source": "20:64:32:54:c9:da",
+          "signal_dbm": {
+            "n": 416,
+            "missing": 0,
+            "p10": -37.0,
+            "median": -24.0,
+            "p90": -20.0
+          }
+        }
+      ],
+      "signal_of_announcements": [
+        {
+          "label": "normal",
+          "bssid": "28:c6:8e:86:d3:d6",
+          "frame_len": "148",
+          "signal_dbm": {
+            "n": 39740,
+            "missing": 0,
+            "p10": -30.0,
+            "median": -28.0,
+            "p90": -26.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "00:13:33:87:62:6d",
+          "frame_len": "159",
+          "signal_dbm": {
+            "n": 37473,
+            "missing": 0,
+            "p10": -39.0,
+            "median": -36.0,
+            "p90": -32.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "b0:48:7a:e2:62:23",
+          "frame_len": "261",
+          "signal_dbm": {
+            "n": 35916,
+            "missing": 0,
+            "p10": -51.0,
+            "median": -47.0,
+            "p90": -47.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "38:22:9d:ae:c5:65",
+          "frame_len": "185",
+          "signal_dbm": {
+            "n": 32915,
+            "missing": 0,
+            "p10": -52.0,
+            "median": -47.0,
+            "p90": -43.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "38:22:9d:c4:8d:28",
+          "frame_len": "185",
+          "signal_dbm": {
+            "n": 20636,
+            "missing": 0,
+            "p10": -63.0,
+            "median": -60.0,
+            "p90": -58.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "28:c6:8e:86:d3:d6",
+          "frame_len": "142",
+          "signal_dbm": {
+            "n": 11297,
+            "missing": 0,
+            "p10": -31.0,
+            "median": -28.0,
+            "p90": -26.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "fc:0a:81:0f:dc:70",
+          "frame_len": "214",
+          "signal_dbm": {
+            "n": 7822,
+            "missing": 0,
+            "p10": -64.0,
+            "median": -63.0,
+            "p90": -61.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "b0:48:7a:e2:62:23",
+          "frame_len": "255",
+          "signal_dbm": {
+            "n": 3754,
+            "missing": 0,
+            "p10": -51.0,
+            "median": -48.0,
+            "p90": -47.0
+          }
+        },
+        {
+          "label": "normal",
+          "bssid": "38:22:9d:ae:c5:65",
+          "frame_len": "179",
+          "signal_dbm": {
+            "n": 3729,
+            "missing": 0,
+            "p10": -53.0,
+            "median": -48.0,
+            "p90": -43.0
+          }
+        },
+        {
+          "label": "evil_twin",
+          "bssid": "28:c6:8e:86:d3:d6",
+          "frame_len": "99",
+          "signal_dbm": {
+            "n": 2662,
+            "missing": 0,
+            "p10": -26.0,
+            "median": -25.0,
+            "p90": -22.0
+          }
+        }
+      ]
+    }
+  }
+}
