@@ -1,17 +1,17 @@
 {
   "meta": {
     "script": "scripts/16_rv2_80211_checks.py (pcap archive check)",
-    "git_commit": "2dabf53646a3a4bc0862c91a95e32fe8ffe969c2",
+    "git_commit": "51834e7d4c3c0059afa54ee5e84be095c45fe8e3",
     "uncommitted_files": [],
-    "timestamp_utc": "2026-11-27T05:00:54+00:00",
+    "timestamp_utc": "2026-11-27T08:27:05+00:00",
     "python": "3.11.5",
     "platform": "Windows-10-10.0.26100-SP0",
     "packages": {
       "numpy": "1.26.4",
-      "pandas": "2.3.3",
-      "pyarrow": "22.0.0",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
       "scikit-learn": "1.5.2",
-      "xgboost": null
+      "xgboost": "2.1.1"
     }
   },
   "results": {
