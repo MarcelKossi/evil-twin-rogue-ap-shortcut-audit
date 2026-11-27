@@ -212,7 +212,7 @@ discarded by a common cleaning step.
 | S5 | H3a - transfer AWID3 <-> AWID2 | Done |
 | S6 | H3b - rule baseline | Done |
 | S7 | H4 - imbalance probe | Done |
-| - | 802.11 checks on the raw captures (exploratory) | In progress |
+| - | 802.11 checks on the raw captures (exploratory) | Done; in the journal, to be reported in RESULTS.md |
 | S8 | Statistics, figures, paper | Analysis plan written (journal, 22 November); not run |
 
 ## Quick start
@@ -263,6 +263,7 @@ python scripts/14_s6_rules.py
 python scripts/15_s7_smote.py
 python scripts/16_rv2_80211_checks.py
 python scripts/17_rv3_file_format.py
+python scripts/18_rv4_transfer_checks.py
 ```
 
 The whole pipeline takes more than a day on a laptop CPU. The long stages can be

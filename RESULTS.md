@@ -337,7 +337,7 @@ fired (0-5).
 
 | Dataset | Chance | Rules, all frames | Rules, beacons and probe responses |
 |---|---|---|---|
-| AWID3 Rogue_AP | 0.0007 | 0.26 | 0.42 |
+| AWID3 Rogue_AP | 0.0007 | 0.30 | 0.75 |
 | AWID3 Evil_Twin | 0.028 | 0.08 | 0.84 |
 | AWID2 | 0.0015 | 0.54 | 0.65 |
 
@@ -346,10 +346,23 @@ Rule by rule (fires on attack frames / all fires):
 | Rule | Rogue_AP | Evil_Twin | AWID2 |
 |---|---|---|---|
 | R1 known name, unknown BSSID | 0 / 0 | 3,594 / 4,366 | 0 / 5 |
-| R2 security profile differs | 1,310 / 4,648 | 3,594 / 4,874 | 1,761 / 7,775 |
+| R2 security profile differs | 1,310 / 1,764 | 3,594 / 4,366 | 1,761 / 7,775 |
 | R3 sequence-number jump | 258 / 7,363 | 3,523 / 3,643 | 2,629 / 16,752 |
 | R4 TSF clock goes back | 1,180 / 1,408 | 2 / 5 | 2,514 / 4,813 |
 | R5 deauthentication burst | 0 / 62,428 | 0 / 0 | 0 / 180,999 |
+
+Deviation 12 (27 November, after the results): R2 reads an integer written `1.0`
+as `1`. Some AWID3 CSV files write `1.0` where others write `1`, and the first
+version, which compared the text as written, also fired on 2,884 legitimate
+announcements in Rogue_AP and 508 in Evil_Twin (Rogue_AP: 0.26 over all frames,
+0.42 on announcements; [`results/S6_rules_v1.json`](results/S6_rules_v1.json)).
+The other rules and AWID2 are unchanged.
+
+**R3 and R5 are not interpretable in AWID3**: inside the attack window,
+`frame.time_epoch` is written in whole seconds
+([`results/RV3_file_format.json`](results/RV3_file_format.json)), so their
+1-second condition is not measured as defined. The AWID3 rule scores above
+include them.
 
 - **R2 flags every rogue announcement in AWID3** (1,310 of 1,310, 3,594 of
   3,594): the security-profile difference that the missingness rule removed
@@ -365,12 +378,17 @@ Rule by rule (fires on attack frames / all fires):
   Evil_Twin attack: hence 0.08 over all frames.
 - R5 fires on 62,428 frames labelled Normal in Rogue_AP: these are the
   unprotected deauthentication frames sent during the attack and labelled
-  Normal (S1c found 62,455). In AWID2 it fires on 180,999 frames labelled
-  normal, not examined further.
-- R2 also fires on 3,338 legitimate announcements in Rogue_AP and 1,280 in
-  Evil_Twin; their cause was not examined.
+  Normal (S1c found 62,455). Their signal strength is that of the rogue AP's
+  beacons (median -40 dBm, against -36 for the legitimate AP), so they come
+  from the attacker's position and are attack frames left out of the label
+  ([`results/RV2_awid3.json`](results/RV2_awid3.json)). In AWID2 it fires on
+  180,999 frames labelled normal, not examined further.
+- R2 also fires on 454 announcements labelled Normal in Rogue_AP and 772 in
+  Evil_Twin: by their BSSID, length and signal strength they come from the
+  rogue AP, so they are rogue frames left out of the label
+  ([`results/RV2_awid3.json`](results/RV2_awid3.json)).
 
-Source: [`results/S6_rules.json`](results/S6_rules.json).
+Source: [`results/S6_rules.json`](results/S6_rules.json) (S6 v2).
 
 ## Does SMOTE help? (S7, pre-registered H4)
 

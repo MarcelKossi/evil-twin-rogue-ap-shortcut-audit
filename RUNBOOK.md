@@ -329,3 +329,24 @@ git add results
 git commit -m "pcap check read from the start of the archive: results"
 git push
 ```
+
+## 21. Transfer checks on the S5 results (exploratory, plan item 3)
+
+| Command | Output | Time |
+|---|---|---|
+| `python scripts/18_rv4_transfer_checks.py` | `results/RV4_transfer.json` | about 10-15 min (re-reads one raw column of each dataset) |
+
+Chance-corrected gap Gc, configurations with constant scores, per-field shift between AWID3
+Evil_Twin and AWID2 (with the order of the `radiotap.dbm_antsignal` codes), and LR on F-chatz
+on announcements (refit, one field fixed at a time). No S5 result changes.
+
+```cmd
+.venv\Scripts\activate.bat
+where python
+git add scripts/18_rv4_transfer_checks.py docs/journal.md RUNBOOK.md README.md
+git commit -m "Transfer checks on the S5 results (exploratory, plan item 3)"
+python scripts/18_rv4_transfer_checks.py
+git add results
+git commit -m "Transfer checks on the S5 results: results"
+git push
+```
