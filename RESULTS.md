@@ -1,10 +1,10 @@
 # Preliminary results
 
-*Status: 26 November 2026. Stages S0-S7 of the pre-registered protocol
+*Status: 27 November 2026. Stages S0-S7 of the pre-registered protocol
 ([`docs/protocol_v0.3.md`](docs/protocol_v0.3.md), tag `prereg-v0.3`), plus
-the exploratory stages S4x, S4y and the perturbation test. The 802.11 checks on
-the raw captures (exploratory, started on 25 November) are in the journal and not
-yet reported here. The first sections
+the exploratory stages S4x, S4y and the perturbation test. The 802.11 checks and
+the transfer checks (exploratory, 25-27 November) are in the journal; only their
+effect on S6 is reported here so far. The first sections
 describe the labels of AWID3; the later sections describe detectors trained on
 them, their transfer to AWID2, a rule baseline and an imbalance probe.*
 

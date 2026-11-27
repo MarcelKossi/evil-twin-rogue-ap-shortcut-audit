@@ -3,10 +3,33 @@
 **Kossi Tamplare**, GD Goenka University  
 Advisor: Dr. Rajat Sharma, GD Goenka University
 
-_Status (26 November 2026): stages S0-S7 of the pre-registered protocol, the
+_Status (27 November 2026): stages S0-S7 of the pre-registered protocol, the
 exploratory stages S4x and S4y and the perturbation test done; the S8 analysis plan
-is written (journal, 22 November); 802.11 checks on the raw captures are in progress
-(exploratory). All results below are **preliminary**._
+is written (journal, 22 November); the exploratory checks of the pre-submission
+review are under way (802.11 checks and transfer checks done; the prediction dump
+for the block-bootstrap intervals comes next). All results below are **preliminary**._
+
+**New since 21 November** (exploratory; details in [`docs/journal.md`](docs/journal.md);
+they will be folded into the findings below when these are reworded):
+
+- **The rogue APs announce different security profiles** ([`results/RV2_pcap.json`](results/RV2_pcap.json)).
+  The legitimate AP announces WPA2-Enterprise. The Rogue_AP rogue AP clones its BSSID
+  but announces WPA2-Personal. The Evil_Twin rogue AP first announces an open
+  network, then WPA2-Enterprise with TKIP as group cipher.
+- **The labels leave out part of the attacks** ([`results/RV2_awid3.json`](results/RV2_awid3.json)):
+  in Rogue_AP, 62,456 deauthentication frames sent from the attacker's position;
+  454 rogue announcements in Rogue_AP and 772 in Evil_Twin.
+- **The AWID3 CSV files were written in two styles** ([`results/RV3_file_format.json`](results/RV3_file_format.json)):
+  the clock in whole seconds or with 6 decimals, integers written `1` or `1.0`. Every
+  file of the attack windows has whole seconds, so the rules R3 and R5 cannot be read
+  on AWID3, and the rule R2 was corrected (deviation 12).
+- **The transfer failure is not a prevalence effect** ([`results/RV4_transfer.json`](results/RV4_transfer.json)):
+  corrected for chance, the gap of every F-all model kept is 0.94-1.00.
+- **The signal-strength field is encoded in text order** (`-10`, `-100`, ..., `-99`),
+  not in the order of signal strength (Spearman 0.37), so a split on it is not a
+  threshold on signal strength.
+- **The one transfer that works** (LR on F-chatz, AWID3 to AWID2 announcements,
+  PR-AUC 0.88 against 0.016 by chance) rests mostly on frame length.
 
 ---
 
