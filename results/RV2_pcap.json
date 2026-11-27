@@ -1,0 +1,609 @@
+{
+  "meta": {
+    "script": "scripts/16_rv2_80211_checks.py --part pcap",
+    "git_commit": "48ef41e65d414a58f1f85cc64f775c4201221754",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-27T08:58:27+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": "2.1.1"
+    },
+    "inputs_sha256": {
+      "S6_rules.json": "f1efc748b631b26ccd1490114e1a8ad673553b797a589c2ae21088bbe485249c",
+      "awid2_columns.txt": "ee49eea95dc853bb09e248cb167965ce6d898aad1f8d8be972d9dde902f319e9",
+      "S0_archive_hashes.json": "4bd3387a15ea2abc2361f35f789c8a33d055b9491b5dae71b858546485d89c9a"
+    },
+    "archive_bytes": {
+      "awid3_pcap_zip": 12063714960
+    }
+  },
+  "results": {
+    "archive_read": "from the start, without the central directory",
+    "rogue_ap": {
+      "members": {
+        "AWID3_Dataset/pcaps/4. Rogue_AP.pcap": {
+          "packets": 1973193,
+          "complete": true
+        }
+      },
+      "all_members_complete": true,
+      "packets": 1973193,
+      "last_csv_frame_number": 1973193,
+      "link_types": {
+        "127": 1973193
+      },
+      "announcements_pcap": 7858,
+      "announcements_csv": 7858,
+      "matched": 7858,
+      "agreement": {
+        "length": 7858,
+        "bssid": 7858,
+        "subtype": 7858
+      },
+      "valid": true,
+      "groups": [
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "probe response",
+          "frame_len": 263,
+          "label": "Normal",
+          "n": 454,
+          "frame_numbers": [
+            1203267,
+            1917024
+          ],
+          "privacy": {
+            "1": 454
+          },
+          "ess": {
+            "1": 454
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:2 MFPC 0 MFPR 0": 454
+          },
+          "wpa_element": {
+            "0": 454
+          },
+          "country": {
+            "GR": 454
+          },
+          "ssid": {
+            "ASUS_5G": 454
+          },
+          "elements": {
+            "0,1,3,5,7,48,45,61,127,191,192,195,221": 454
+          },
+          "csv_mfpc": {
+            "0": 454
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "beacon",
+          "frame_len": 263,
+          "label": "RogueAP",
+          "n": 1310,
+          "frame_numbers": [
+            1198551,
+            1973111
+          ],
+          "privacy": {
+            "1": 1310
+          },
+          "ess": {
+            "1": 1310
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:2 MFPC 0 MFPR 0": 1310
+          },
+          "wpa_element": {
+            "0": 1310
+          },
+          "country": {
+            "GR": 1310
+          },
+          "ssid": {
+            "ASUS_5G": 1310
+          },
+          "elements": {
+            "0,1,3,5,7,48,45,61,127,191,192,195,221": 1310
+          },
+          "csv_mfpc": {
+            "0": 1310
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "probe response",
+          "frame_len": 336,
+          "label": "Normal",
+          "n": 458,
+          "frame_numbers": [
+            16,
+            1916998
+          ],
+          "privacy": {
+            "1": 458
+          },
+          "ess": {
+            "1": 458
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 458
+          },
+          "wpa_element": {
+            "0": 458
+          },
+          "country": {
+            "DE": 458
+          },
+          "ssid": {
+            "ASUS_5G": 458
+          },
+          "elements": {
+            "0,1,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 458
+          },
+          "csv_mfpc": {
+            "1": 363,
+            "1.0": 95
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "beacon",
+          "frame_len": 342,
+          "label": "Normal",
+          "n": 5137,
+          "frame_numbers": [
+            1,
+            1966645
+          ],
+          "privacy": {
+            "1": 5137
+          },
+          "ess": {
+            "1": 5137
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 5137
+          },
+          "wpa_element": {
+            "0": 5137
+          },
+          "country": {
+            "DE": 5137
+          },
+          "ssid": {
+            "ASUS_5G": 5137
+          },
+          "elements": {
+            "0,1,5,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 5137
+          },
+          "csv_mfpc": {
+            "1.0": 3010,
+            "1": 2127
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "beacon",
+          "frame_len": 343,
+          "label": "Normal",
+          "n": 497,
+          "frame_numbers": [
+            9274,
+            1972411
+          ],
+          "privacy": {
+            "1": 497
+          },
+          "ess": {
+            "1": 497
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 497
+          },
+          "wpa_element": {
+            "0": 497
+          },
+          "country": {
+            "DE": 497
+          },
+          "ssid": {
+            "ASUS_5G": 497
+          },
+          "elements": {
+            "0,1,5,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 497
+          },
+          "csv_mfpc": {
+            "1": 394,
+            "1.0": 103
+          }
+        }
+      ]
+    },
+    "evil_twin": {
+      "members": {
+        "AWID3_Dataset/pcaps/7. Evil_Twin.pcap": {
+          "packets": 3778728,
+          "complete": true
+        }
+      },
+      "all_members_complete": true,
+      "packets": 3778728,
+      "last_csv_frame_number": 3778728,
+      "link_types": {
+        "127": 3778728
+      },
+      "announcements_pcap": 13514,
+      "announcements_csv": 13514,
+      "matched": 13514,
+      "agreement": {
+        "length": 13514,
+        "bssid": 13514,
+        "subtype": 13514
+      },
+      "valid": true,
+      "groups": [
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "probe response",
+          "frame_len": 336,
+          "label": "Normal",
+          "n": 463,
+          "frame_numbers": [
+            38,
+            3766076
+          ],
+          "privacy": {
+            "1": 463
+          },
+          "ess": {
+            "1": 463
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 463
+          },
+          "wpa_element": {
+            "0": 463
+          },
+          "country": {
+            "DE": 463
+          },
+          "ssid": {
+            "ASUS_5G": 463
+          },
+          "elements": {
+            "0,1,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 463
+          },
+          "csv_mfpc": {
+            "1": 441,
+            "1.0": 22
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "beacon",
+          "frame_len": 342,
+          "label": "Normal",
+          "n": 8141,
+          "frame_numbers": [
+            1,
+            3778637
+          ],
+          "privacy": {
+            "1": 8141
+          },
+          "ess": {
+            "1": 8141
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 8141
+          },
+          "wpa_element": {
+            "0": 8141
+          },
+          "country": {
+            "DE": 8141
+          },
+          "ssid": {
+            "ASUS_5G": 8141
+          },
+          "elements": {
+            "0,1,5,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 8141
+          },
+          "csv_mfpc": {
+            "1": 7719,
+            "1.0": 422
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:34",
+          "subtype": "beacon",
+          "frame_len": 343,
+          "label": "Normal",
+          "n": 544,
+          "frame_numbers": [
+            1053,
+            3778197
+          ],
+          "privacy": {
+            "1": 544
+          },
+          "ess": {
+            "1": 544
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:4 pairwise 00-0f-ac:4 akm 00-0f-ac:1 MFPC 1 MFPR 0": 544
+          },
+          "wpa_element": {
+            "0": 544
+          },
+          "country": {
+            "DE": 544
+          },
+          "ssid": {
+            "ASUS_5G": 544
+          },
+          "elements": {
+            "0,1,5,7,32,35,48,11,45,61,127,191,192,195,221,221,70": 544
+          },
+          "csv_mfpc": {
+            "1": 480,
+            "1.0": 64
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "probe response",
+          "frame_len": 150,
+          "label": "Evil_Twin",
+          "n": 26,
+          "frame_numbers": [
+            2753884,
+            2793857
+          ],
+          "privacy": {
+            "1": 26
+          },
+          "ess": {
+            "1": 26
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:2 pairwise 00-0f-ac:4,00-0f-ac:2 akm 00-0f-ac:1 MFPC 0 MFPR 0": 26
+          },
+          "wpa_element": {
+            "0": 26
+          },
+          "country": {
+            "": 26
+          },
+          "ssid": {
+            "ASUS_5G": 26
+          },
+          "elements": {
+            "0,1,3,5,48": 26
+          },
+          "csv_mfpc": {
+            "0": 26
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "beacon",
+          "frame_len": 150,
+          "label": "Evil_Twin",
+          "n": 1784,
+          "frame_numbers": [
+            2736921,
+            3778728
+          ],
+          "privacy": {
+            "1": 1784
+          },
+          "ess": {
+            "1": 1784
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:2 pairwise 00-0f-ac:4,00-0f-ac:2 akm 00-0f-ac:1 MFPC 0 MFPR 0": 1784
+          },
+          "wpa_element": {
+            "0": 1784
+          },
+          "country": {
+            "": 1784
+          },
+          "ssid": {
+            "ASUS_5G": 1784
+          },
+          "elements": {
+            "0,1,3,5,48": 1784
+          },
+          "csv_mfpc": {
+            "0": 1784
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "probe response",
+          "frame_len": 150,
+          "label": "Normal",
+          "n": 462,
+          "frame_numbers": [
+            2917470,
+            3766104
+          ],
+          "privacy": {
+            "1": 462
+          },
+          "ess": {
+            "1": 462
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:2 pairwise 00-0f-ac:4,00-0f-ac:2 akm 00-0f-ac:1 MFPC 0 MFPR 0": 462
+          },
+          "wpa_element": {
+            "0": 462
+          },
+          "country": {
+            "": 462
+          },
+          "ssid": {
+            "ASUS_5G": 462
+          },
+          "elements": {
+            "0,1,3,5,48": 462
+          },
+          "csv_mfpc": {
+            "0": 462
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "beacon",
+          "frame_len": 150,
+          "label": "Normal",
+          "n": 143,
+          "frame_numbers": [
+            2864542,
+            2949168
+          ],
+          "privacy": {
+            "1": 143
+          },
+          "ess": {
+            "1": 143
+          },
+          "rsn": {
+            "v1 group 00-0f-ac:2 pairwise 00-0f-ac:4,00-0f-ac:2 akm 00-0f-ac:1 MFPC 0 MFPR 0": 143
+          },
+          "wpa_element": {
+            "0": 143
+          },
+          "country": {
+            "": 143
+          },
+          "ssid": {
+            "ASUS_5G": 143
+          },
+          "elements": {
+            "0,1,3,5,48": 143
+          },
+          "csv_mfpc": {
+            "0": 143
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "beacon",
+          "frame_len": 241,
+          "label": "Evil_Twin",
+          "n": 1784,
+          "frame_numbers": [
+            1420658,
+            2731272
+          ],
+          "privacy": {
+            "0": 1784
+          },
+          "ess": {
+            "1": 1784
+          },
+          "rsn": {
+            "no RSN element": 1784
+          },
+          "wpa_element": {
+            "0": 1784
+          },
+          "country": {
+            "GR": 1784
+          },
+          "ssid": {
+            "ASUS_5G": 1784
+          },
+          "elements": {
+            "0,1,3,5,7,45,61,127,191,192,195,221": 1784
+          },
+          "csv_mfpc": {
+            "<missing>": 1784
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "probe response",
+          "frame_len": 241,
+          "label": "Normal",
+          "n": 102,
+          "frame_numbers": [
+            1396629,
+            2728718
+          ],
+          "privacy": {
+            "0": 102
+          },
+          "ess": {
+            "1": 102
+          },
+          "rsn": {
+            "no RSN element": 102
+          },
+          "wpa_element": {
+            "0": 102
+          },
+          "country": {
+            "GR": 102
+          },
+          "ssid": {
+            "ASUS_5G": 102
+          },
+          "elements": {
+            "0,1,3,5,7,45,61,127,191,192,195,221": 102
+          },
+          "csv_mfpc": {
+            "<missing>": 102
+          }
+        },
+        {
+          "bssid": "0c:9d:92:54:fe:35",
+          "subtype": "beacon",
+          "frame_len": 241,
+          "label": "Normal",
+          "n": 65,
+          "frame_numbers": [
+            1351181,
+            1420000
+          ],
+          "privacy": {
+            "0": 65
+          },
+          "ess": {
+            "1": 65
+          },
+          "rsn": {
+            "no RSN element": 65
+          },
+          "wpa_element": {
+            "0": 65
+          },
+          "country": {
+            "GR": 65
+          },
+          "ssid": {
+            "ASUS_5G": 65
+          },
+          "elements": {
+            "0,1,3,5,7,45,61,127,191,192,195,221": 65
+          },
+          "csv_mfpc": {
+            "<missing>": 65
+          }
+        }
+      ]
+    }
+  }
+}

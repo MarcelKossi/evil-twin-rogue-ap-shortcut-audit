@@ -1,0 +1,1900 @@
+{
+  "meta": {
+    "script": "scripts/18_rv4_transfer_checks.py",
+    "git_commit": "864c82f0b0455d0129db887cbfa0566ce00c322d",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-27T10:01:12+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": "2.1.1"
+    },
+    "inputs_sha256": {
+      "S5_runs.csv": "1bd761b9cce6bf6f49dfe68b9f88c03054652ea0b8efb5192cc27e4f2c03a248",
+      "s5_features.json": "e39859617752ae0ef2842297d67294ba170bf2a48f5b65709ea2cdefaa1730c5",
+      "S5_transfer.json": "01cb21aed0514f423fb27b68740775d044efcea12695c59dd5b170361d492dd9"
+    }
+  },
+  "results": {
+    "a_chance_corrected_gap": {
+      "all": {
+        "configurations": {
+          "AWID2->AWID3 | F-all | DT": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.9376,
+            "kI": 0.9375,
+            "G": 0.9704,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | LR": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.9641,
+            "kI": 0.964,
+            "G": 0.9712,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | MLP": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.9471,
+            "kI": 0.9469,
+            "G": 0.9707,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | RF": {
+            "T": 0.0865,
+            "kT": 0.0604,
+            "I": 0.9588,
+            "kI": 0.9588,
+            "G": 0.9098,
+            "Gc": 0.937
+          },
+          "AWID2->AWID3 | F-all | XGB": {
+            "T": 0.0296,
+            "kT": 0.0019,
+            "I": 0.9488,
+            "kI": 0.9488,
+            "G": 0.9688,
+            "Gc": 0.9979
+          },
+          "AWID2->AWID3 | F-chatz | DT": {
+            "T": 0.0298,
+            "kT": 0.0021,
+            "I": 0.9354,
+            "kI": 0.9351,
+            "G": 0.9682,
+            "Gc": 0.9978
+          },
+          "AWID2->AWID3 | F-chatz | LR": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.7855,
+            "kI": 0.785,
+            "G": 0.9647,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | MLP": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.9771,
+            "kI": 0.977,
+            "G": 0.9716,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | RF": {
+            "T": 0.034,
+            "kT": 0.0065,
+            "I": 0.922,
+            "kI": 0.9217,
+            "G": 0.9631,
+            "Gc": 0.993
+          },
+          "AWID2->AWID3 | F-chatz | XGB": {
+            "T": 0.0406,
+            "kT": 0.0132,
+            "I": 0.9843,
+            "kI": 0.9842,
+            "G": 0.9587,
+            "Gc": 0.9866
+          },
+          "AWID2->AWID3 | F-noA | DT": {
+            "T": 0.0277,
+            "kT": 0.0,
+            "I": 0.9332,
+            "kI": 0.9329,
+            "G": 0.9703,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-noA | LR": {
+            "T": 0.0602,
+            "kT": 0.0334,
+            "I": 0.8312,
+            "kI": 0.8308,
+            "G": 0.9276,
+            "Gc": 0.9598
+          },
+          "AWID2->AWID3 | F-noA | MLP": {
+            "T": 0.082,
+            "kT": 0.0558,
+            "I": 0.9269,
+            "kI": 0.9267,
+            "G": 0.9116,
+            "Gc": 0.9398
+          },
+          "AWID2->AWID3 | F-noA | RF": {
+            "T": 0.0283,
+            "kT": 0.0005,
+            "I": 0.9616,
+            "kI": 0.9615,
+            "G": 0.9706,
+            "Gc": 0.9994
+          },
+          "AWID2->AWID3 | F-noA | XGB": {
+            "T": 0.0236,
+            "kT": -0.0043,
+            "I": 0.9459,
+            "kI": 0.9458,
+            "G": 0.9751,
+            "Gc": 1.0045
+          },
+          "AWID2->AWID3 | F-sem | DT": {
+            "T": 0.0359,
+            "kT": 0.0084,
+            "I": 0.783,
+            "kI": 0.7825,
+            "G": 0.9542,
+            "Gc": 0.9893
+          },
+          "AWID2->AWID3 | F-sem | LR": {
+            "T": 0.0319,
+            "kT": 0.0043,
+            "I": 0.731,
+            "kI": 0.7302,
+            "G": 0.9564,
+            "Gc": 0.9942
+          },
+          "AWID2->AWID3 | F-sem | MLP": {
+            "T": 0.0503,
+            "kT": 0.0232,
+            "I": 0.7813,
+            "kI": 0.7808,
+            "G": 0.9354,
+            "Gc": 0.9701
+          },
+          "AWID2->AWID3 | F-sem | RF": {
+            "T": 0.0359,
+            "kT": 0.0084,
+            "I": 0.7857,
+            "kI": 0.7852,
+            "G": 0.9543,
+            "Gc": 0.9893
+          },
+          "AWID2->AWID3 | F-sem | XGB": {
+            "T": 0.1233,
+            "kT": 0.0983,
+            "I": 0.7851,
+            "kI": 0.7847,
+            "G": 0.8429,
+            "Gc": 0.8747
+          },
+          "AWID3->AWID2 | F-all | DT": {
+            "T": 0.0015,
+            "kT": 0.0,
+            "I": 0.0011,
+            "kI": 0.0,
+            "G": -0.3018,
+            "Gc": null
+          },
+          "AWID3->AWID2 | F-all | LR": {
+            "T": 0.0015,
+            "kT": 0.0,
+            "I": 0.3504,
+            "kI": 0.3496,
+            "G": 0.9957,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-all | MLP": {
+            "T": 0.0015,
+            "kT": 0.0,
+            "I": 0.0718,
+            "kI": 0.0708,
+            "G": 0.9562,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-all | RF": {
+            "T": 0.017,
+            "kT": 0.0155,
+            "I": 0.956,
+            "kI": 0.9559,
+            "G": 0.9823,
+            "Gc": 0.9838
+          },
+          "AWID3->AWID2 | F-all | XGB": {
+            "T": 0.0017,
+            "kT": 0.0002,
+            "I": 0.9998,
+            "kI": 0.9998,
+            "G": 0.9983,
+            "Gc": 0.9998
+          },
+          "AWID3->AWID2 | F-chatz | DT": {
+            "T": 0.0015,
+            "kT": -0.0,
+            "I": 0.8908,
+            "kI": 0.8907,
+            "G": 0.9983,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-chatz | LR": {
+            "T": 0.0423,
+            "kT": 0.0408,
+            "I": 0.1715,
+            "kI": 0.1705,
+            "G": 0.7535,
+            "Gc": 0.7606
+          },
+          "AWID3->AWID2 | F-chatz | MLP": {
+            "T": 0.0048,
+            "kT": 0.0033,
+            "I": 0.9263,
+            "kI": 0.9262,
+            "G": 0.9948,
+            "Gc": 0.9965
+          },
+          "AWID3->AWID2 | F-chatz | RF": {
+            "T": 0.0368,
+            "kT": 0.0354,
+            "I": 0.994,
+            "kI": 0.994,
+            "G": 0.963,
+            "Gc": 0.9644
+          },
+          "AWID3->AWID2 | F-chatz | XGB": {
+            "T": 0.0433,
+            "kT": 0.0419,
+            "I": 0.9975,
+            "kI": 0.9975,
+            "G": 0.9566,
+            "Gc": 0.958
+          },
+          "AWID3->AWID2 | F-noA | DT": {
+            "T": 0.0016,
+            "kT": 0.0001,
+            "I": 0.5976,
+            "kI": 0.5971,
+            "G": 0.9973,
+            "Gc": 0.9998
+          },
+          "AWID3->AWID2 | F-noA | LR": {
+            "T": 0.0275,
+            "kT": 0.026,
+            "I": 0.237,
+            "kI": 0.2361,
+            "G": 0.8839,
+            "Gc": 0.8897
+          },
+          "AWID3->AWID2 | F-noA | MLP": {
+            "T": 0.0563,
+            "kT": 0.0549,
+            "I": 0.9127,
+            "kI": 0.9126,
+            "G": 0.9382,
+            "Gc": 0.9397
+          },
+          "AWID3->AWID2 | F-noA | RF": {
+            "T": 0.0537,
+            "kT": 0.0523,
+            "I": 0.9936,
+            "kI": 0.9936,
+            "G": 0.946,
+            "Gc": 0.9474
+          },
+          "AWID3->AWID2 | F-noA | XGB": {
+            "T": 0.0629,
+            "kT": 0.0615,
+            "I": 0.9985,
+            "kI": 0.9985,
+            "G": 0.937,
+            "Gc": 0.9384
+          },
+          "AWID3->AWID2 | F-sem | DT": {
+            "T": 0.0069,
+            "kT": 0.0054,
+            "I": 0.012,
+            "kI": 0.0108,
+            "G": 0.4217,
+            "Gc": 0.4985
+          },
+          "AWID3->AWID2 | F-sem | LR": {
+            "T": 0.0106,
+            "kT": 0.0091,
+            "I": 0.0107,
+            "kI": 0.0095,
+            "G": 0.0046,
+            "Gc": 0.0414
+          },
+          "AWID3->AWID2 | F-sem | MLP": {
+            "T": 0.0127,
+            "kT": 0.0112,
+            "I": 0.0106,
+            "kI": 0.0094,
+            "G": -0.2138,
+            "Gc": -0.2052
+          },
+          "AWID3->AWID2 | F-sem | RF": {
+            "T": 0.007,
+            "kT": 0.0055,
+            "I": 0.012,
+            "kI": 0.0108,
+            "G": 0.4174,
+            "Gc": 0.4938
+          },
+          "AWID3->AWID2 | F-sem | XGB": {
+            "T": 0.0118,
+            "kT": 0.0104,
+            "I": 0.012,
+            "kI": 0.0108,
+            "G": 0.009,
+            "Gc": 0.0418
+          }
+        },
+        "left_out_in_domain_below_0.5": [
+          "AWID3->AWID2 | F-all | DT",
+          "AWID3->AWID2 | F-all | LR",
+          "AWID3->AWID2 | F-all | MLP",
+          "AWID3->AWID2 | F-chatz | LR",
+          "AWID3->AWID2 | F-noA | LR",
+          "AWID3->AWID2 | F-sem | DT",
+          "AWID3->AWID2 | F-sem | LR",
+          "AWID3->AWID2 | F-sem | MLP",
+          "AWID3->AWID2 | F-sem | RF",
+          "AWID3->AWID2 | F-sem | XGB"
+        ],
+        "f_all_kept": {
+          "AWID2->AWID3 | DT": 1.0,
+          "AWID2->AWID3 | LR": 1.0,
+          "AWID2->AWID3 | MLP": 1.0,
+          "AWID2->AWID3 | RF": 0.937,
+          "AWID2->AWID3 | XGB": 0.9979,
+          "AWID3->AWID2 | RF": 0.9838,
+          "AWID3->AWID2 | XGB": 0.9998
+        },
+        "f_all_every_Gc_at_least_0.9": true,
+        "f_all_any_Gc_below_0.5": false,
+        "f_sem_vs_f_all_pairs_kept": 5,
+        "f_sem_vs_f_all_test": {
+          "pairs": 5,
+          "wilcoxon_p_one_sided_Gc_F-sem_lower": 0.21875
+        },
+        "G_largest_difference_from_S5_transfer_json": 0.0
+      },
+      "ET-B": {
+        "configurations": {
+          "AWID2->AWID3 | F-all | DT": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.943,
+            "kI": 0.9147,
+            "G": 0.718,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | LR": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.978,
+            "kI": 0.9649,
+            "G": 0.7281,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | MLP": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.9539,
+            "kI": 0.9328,
+            "G": 0.7211,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | RF": {
+            "T": 0.4108,
+            "kT": 0.1974,
+            "I": 0.9576,
+            "kI": 0.9388,
+            "G": 0.5709,
+            "Gc": 0.7897
+          },
+          "AWID2->AWID3 | F-all | XGB": {
+            "T": 0.2812,
+            "kT": 0.0207,
+            "I": 0.9469,
+            "kI": 0.9238,
+            "G": 0.7031,
+            "Gc": 0.9776
+          },
+          "AWID2->AWID3 | F-chatz | DT": {
+            "T": 0.2307,
+            "kT": -0.0481,
+            "I": 0.9568,
+            "kI": 0.9366,
+            "G": 0.7589,
+            "Gc": 1.0513
+          },
+          "AWID2->AWID3 | F-chatz | LR": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.7525,
+            "kI": 0.6078,
+            "G": 0.6466,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | MLP": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.992,
+            "kI": 0.9885,
+            "G": 0.7319,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | RF": {
+            "T": 0.3093,
+            "kT": 0.0591,
+            "I": 0.928,
+            "kI": 0.889,
+            "G": 0.6667,
+            "Gc": 0.9337
+          },
+          "AWID2->AWID3 | F-chatz | XGB": {
+            "T": 0.5892,
+            "kT": 0.4403,
+            "I": 0.99,
+            "kI": 0.9853,
+            "G": 0.4049,
+            "Gc": 0.5531
+          },
+          "AWID2->AWID3 | F-noA | DT": {
+            "T": 0.2659,
+            "kT": 0.0,
+            "I": 0.9609,
+            "kI": 0.9438,
+            "G": 0.7232,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-noA | LR": {
+            "T": 0.286,
+            "kT": 0.0274,
+            "I": 0.7523,
+            "kI": 0.6028,
+            "G": 0.6198,
+            "Gc": 0.9546
+          },
+          "AWID2->AWID3 | F-noA | MLP": {
+            "T": 0.588,
+            "kT": 0.4388,
+            "I": 0.9276,
+            "kI": 0.8947,
+            "G": 0.3664,
+            "Gc": 0.5101
+          },
+          "AWID2->AWID3 | F-noA | RF": {
+            "T": 0.3288,
+            "kT": 0.0856,
+            "I": 0.9767,
+            "kI": 0.9665,
+            "G": 0.6631,
+            "Gc": 0.9109
+          },
+          "AWID2->AWID3 | F-noA | XGB": {
+            "T": 0.5203,
+            "kT": 0.3464,
+            "I": 0.9441,
+            "kI": 0.9196,
+            "G": 0.449,
+            "Gc": 0.6233
+          },
+          "AWID2->AWID3 | F-sem | DT": {
+            "T": 0.2642,
+            "kT": -0.0024,
+            "I": 0.4347,
+            "kI": 0.0547,
+            "G": 0.3922,
+            "Gc": 1.0434
+          },
+          "AWID2->AWID3 | F-sem | LR": {
+            "T": 0.2862,
+            "kT": 0.0276,
+            "I": 0.4,
+            "kI": -0.0019,
+            "G": 0.2845,
+            "Gc": 15.773
+          },
+          "AWID2->AWID3 | F-sem | MLP": {
+            "T": 0.2686,
+            "kT": 0.0036,
+            "I": 0.4347,
+            "kI": 0.0548,
+            "G": 0.3821,
+            "Gc": 0.9345
+          },
+          "AWID2->AWID3 | F-sem | RF": {
+            "T": 0.2642,
+            "kT": -0.0024,
+            "I": 0.4347,
+            "kI": 0.0547,
+            "G": 0.3922,
+            "Gc": 1.0434
+          },
+          "AWID2->AWID3 | F-sem | XGB": {
+            "T": 0.2642,
+            "kT": -0.0024,
+            "I": 0.4347,
+            "kI": 0.0547,
+            "G": 0.3922,
+            "Gc": 1.0434
+          },
+          "AWID3->AWID2 | F-all | DT": {
+            "T": 0.0156,
+            "kT": -0.0,
+            "I": 0.0105,
+            "kI": -0.0,
+            "G": -0.4881,
+            "Gc": -0.424
+          },
+          "AWID3->AWID2 | F-all | LR": {
+            "T": 0.0156,
+            "kT": -0.0,
+            "I": 0.3855,
+            "kI": 0.379,
+            "G": 0.9597,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-all | MLP": {
+            "T": 0.0156,
+            "kT": -0.0,
+            "I": 0.1069,
+            "kI": 0.0974,
+            "G": 0.682,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-all | RF": {
+            "T": 0.0464,
+            "kT": 0.0313,
+            "I": 0.9912,
+            "kI": 0.9911,
+            "G": 0.9532,
+            "Gc": 0.9684
+          },
+          "AWID3->AWID2 | F-all | XGB": {
+            "T": 0.0149,
+            "kT": -0.0007,
+            "I": 0.9998,
+            "kI": 0.9998,
+            "G": 0.9851,
+            "Gc": 1.0007
+          },
+          "AWID3->AWID2 | F-chatz | DT": {
+            "T": 0.0156,
+            "kT": -0.0,
+            "I": 0.9308,
+            "kI": 0.93,
+            "G": 0.9833,
+            "Gc": 1.0
+          },
+          "AWID3->AWID2 | F-chatz | LR": {
+            "T": 0.8848,
+            "kT": 0.883,
+            "I": 0.9299,
+            "kI": 0.9292,
+            "G": 0.0485,
+            "Gc": 0.0497
+          },
+          "AWID3->AWID2 | F-chatz | MLP": {
+            "T": 0.3625,
+            "kT": 0.3524,
+            "I": 0.9321,
+            "kI": 0.9314,
+            "G": 0.6137,
+            "Gc": 0.6243
+          },
+          "AWID3->AWID2 | F-chatz | RF": {
+            "T": 0.0751,
+            "kT": 0.0605,
+            "I": 0.9962,
+            "kI": 0.9962,
+            "G": 0.9246,
+            "Gc": 0.9393
+          },
+          "AWID3->AWID2 | F-chatz | XGB": {
+            "T": 0.0697,
+            "kT": 0.055,
+            "I": 0.9977,
+            "kI": 0.9976,
+            "G": 0.9302,
+            "Gc": 0.9449
+          },
+          "AWID3->AWID2 | F-noA | DT": {
+            "T": 0.1738,
+            "kT": 0.1607,
+            "I": 0.9385,
+            "kI": 0.9378,
+            "G": 0.8148,
+            "Gc": 0.8286
+          },
+          "AWID3->AWID2 | F-noA | LR": {
+            "T": 0.2105,
+            "kT": 0.198,
+            "I": 0.6758,
+            "kI": 0.6724,
+            "G": 0.6885,
+            "Gc": 0.7055
+          },
+          "AWID3->AWID2 | F-noA | MLP": {
+            "T": 0.3791,
+            "kT": 0.3693,
+            "I": 0.9147,
+            "kI": 0.9138,
+            "G": 0.5871,
+            "Gc": 0.5975
+          },
+          "AWID3->AWID2 | F-noA | RF": {
+            "T": 0.1976,
+            "kT": 0.1849,
+            "I": 0.9974,
+            "kI": 0.9974,
+            "G": 0.8019,
+            "Gc": 0.8146
+          },
+          "AWID3->AWID2 | F-noA | XGB": {
+            "T": 0.0667,
+            "kT": 0.052,
+            "I": 0.9992,
+            "kI": 0.9992,
+            "G": 0.9332,
+            "Gc": 0.948
+          },
+          "AWID3->AWID2 | F-sem | DT": {
+            "T": 0.0147,
+            "kT": -0.0009,
+            "I": 0.012,
+            "kI": 0.0015,
+            "G": -0.2281,
+            "Gc": 1.5877
+          },
+          "AWID3->AWID2 | F-sem | LR": {
+            "T": 0.017,
+            "kT": 0.0014,
+            "I": 0.012,
+            "kI": 0.0015,
+            "G": -0.4207,
+            "Gc": 0.0446
+          },
+          "AWID3->AWID2 | F-sem | MLP": {
+            "T": 0.0147,
+            "kT": -0.0009,
+            "I": 0.0106,
+            "kI": 0.0001,
+            "G": -0.4029,
+            "Gc": 0.5681
+          },
+          "AWID3->AWID2 | F-sem | RF": {
+            "T": 0.0147,
+            "kT": -0.0009,
+            "I": 0.012,
+            "kI": 0.0015,
+            "G": -0.2281,
+            "Gc": 1.5877
+          },
+          "AWID3->AWID2 | F-sem | XGB": {
+            "T": 0.0147,
+            "kT": -0.0009,
+            "I": 0.012,
+            "kI": 0.0015,
+            "G": -0.2281,
+            "Gc": 1.5877
+          }
+        },
+        "left_out_in_domain_below_0.5": [
+          "AWID2->AWID3 | F-sem | DT",
+          "AWID2->AWID3 | F-sem | LR",
+          "AWID2->AWID3 | F-sem | MLP",
+          "AWID2->AWID3 | F-sem | RF",
+          "AWID2->AWID3 | F-sem | XGB",
+          "AWID3->AWID2 | F-all | DT",
+          "AWID3->AWID2 | F-all | LR",
+          "AWID3->AWID2 | F-all | MLP",
+          "AWID3->AWID2 | F-sem | DT",
+          "AWID3->AWID2 | F-sem | LR",
+          "AWID3->AWID2 | F-sem | MLP",
+          "AWID3->AWID2 | F-sem | RF",
+          "AWID3->AWID2 | F-sem | XGB"
+        ],
+        "f_all_kept": {
+          "AWID2->AWID3 | DT": 1.0,
+          "AWID2->AWID3 | LR": 1.0,
+          "AWID2->AWID3 | MLP": 1.0,
+          "AWID2->AWID3 | RF": 0.7897,
+          "AWID2->AWID3 | XGB": 0.9776,
+          "AWID3->AWID2 | RF": 0.9684,
+          "AWID3->AWID2 | XGB": 1.0007
+        },
+        "f_all_every_Gc_at_least_0.9": false,
+        "f_all_any_Gc_below_0.5": false,
+        "f_sem_vs_f_all_pairs_kept": 0,
+        "f_sem_vs_f_all_test": null
+      },
+      "ET-D": {
+        "configurations": {
+          "AWID2->AWID3 | F-all | DT": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.9306,
+            "kI": 0.9304,
+            "G": 0.9319,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | LR": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.9184,
+            "kI": 0.9183,
+            "G": 0.931,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | MLP": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.9293,
+            "kI": 0.9292,
+            "G": 0.9318,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-all | RF": {
+            "T": 0.1313,
+            "kT": 0.0725,
+            "I": 0.9898,
+            "kI": 0.9897,
+            "G": 0.8672,
+            "Gc": 0.9266
+          },
+          "AWID2->AWID3 | F-all | XGB": {
+            "T": 0.0632,
+            "kT": -0.0002,
+            "I": 0.9953,
+            "kI": 0.9953,
+            "G": 0.9365,
+            "Gc": 1.0002
+          },
+          "AWID2->AWID3 | F-chatz | DT": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.9013,
+            "kI": 0.901,
+            "G": 0.9296,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | LR": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.8129,
+            "kI": 0.8126,
+            "G": 0.922,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | MLP": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.9401,
+            "kI": 0.94,
+            "G": 0.9325,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-chatz | RF": {
+            "T": 0.5648,
+            "kT": 0.5353,
+            "I": 0.8805,
+            "kI": 0.8803,
+            "G": 0.3568,
+            "Gc": 0.3901
+          },
+          "AWID2->AWID3 | F-chatz | XGB": {
+            "T": 0.3813,
+            "kT": 0.3394,
+            "I": 0.964,
+            "kI": 0.964,
+            "G": 0.6045,
+            "Gc": 0.6479
+          },
+          "AWID2->AWID3 | F-noA | DT": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.8183,
+            "kI": 0.8179,
+            "G": 0.9225,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-noA | LR": {
+            "T": 0.0503,
+            "kT": -0.014,
+            "I": 0.8116,
+            "kI": 0.8113,
+            "G": 0.938,
+            "Gc": 1.0173
+          },
+          "AWID2->AWID3 | F-noA | MLP": {
+            "T": 0.3987,
+            "kT": 0.358,
+            "I": 0.9406,
+            "kI": 0.9405,
+            "G": 0.5759,
+            "Gc": 0.6192
+          },
+          "AWID2->AWID3 | F-noA | RF": {
+            "T": 0.1685,
+            "kT": 0.1122,
+            "I": 0.9437,
+            "kI": 0.9436,
+            "G": 0.8215,
+            "Gc": 0.8811
+          },
+          "AWID2->AWID3 | F-noA | XGB": {
+            "T": 0.4209,
+            "kT": 0.3817,
+            "I": 0.9774,
+            "kI": 0.9773,
+            "G": 0.5694,
+            "Gc": 0.6095
+          },
+          "AWID2->AWID3 | F-sem | DT": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.8857,
+            "kI": 0.8855,
+            "G": 0.9284,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-sem | LR": {
+            "T": 0.0531,
+            "kT": -0.011,
+            "I": 0.9476,
+            "kI": 0.9471,
+            "G": 0.9439,
+            "Gc": 1.0116
+          },
+          "AWID2->AWID3 | F-sem | MLP": {
+            "T": 0.8518,
+            "kT": 0.8418,
+            "I": 0.8725,
+            "kI": 0.8724,
+            "G": 0.0207,
+            "Gc": 0.032
+          },
+          "AWID2->AWID3 | F-sem | RF": {
+            "T": 0.0634,
+            "kT": -0.0,
+            "I": 0.8955,
+            "kI": 0.8954,
+            "G": 0.9292,
+            "Gc": 1.0
+          },
+          "AWID2->AWID3 | F-sem | XGB": {
+            "T": 0.9952,
+            "kT": 0.9949,
+            "I": 0.9411,
+            "kI": 0.941,
+            "G": -0.0575,
+            "Gc": -0.0573
+          }
+        },
+        "left_out_in_domain_below_0.5": [],
+        "f_all_kept": {
+          "AWID2->AWID3 | DT": 1.0,
+          "AWID2->AWID3 | LR": 1.0,
+          "AWID2->AWID3 | MLP": 1.0,
+          "AWID2->AWID3 | RF": 0.9266,
+          "AWID2->AWID3 | XGB": 1.0002
+        },
+        "f_all_every_Gc_at_least_0.9": true,
+        "f_all_any_Gc_below_0.5": false,
+        "f_sem_vs_f_all_pairs_kept": 5,
+        "f_sem_vs_f_all_test": {
+          "pairs": 5,
+          "wilcoxon_p_one_sided_Gc_F-sem_lower": 0.2326044092260709
+        }
+      }
+    },
+    "b_constant_scores": {
+      "configurations": 9,
+      "of": 40,
+      "list": [
+        {
+          "configuration": "AWID2->AWID3 | F-all | DT",
+          "direction": "AWID2->AWID3",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.fixed.reason_code",
+            "wlan.fixed.timestamp",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ssid",
+            "wlan.ta",
+            "data.len"
+          ],
+          "missing_or_constant_in_target": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "wlan.ssid"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID2->AWID3 | F-all | LR",
+          "direction": "AWID2->AWID3",
+          "seeds": 1,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.fixed.reason_code",
+            "wlan.fixed.timestamp",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ssid",
+            "wlan.ta",
+            "data.len"
+          ],
+          "missing_or_constant_in_target": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "wlan.ssid"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID2->AWID3 | F-all | MLP",
+          "direction": "AWID2->AWID3",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.fixed.reason_code",
+            "wlan.fixed.timestamp",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ssid",
+            "wlan.ta",
+            "data.len"
+          ],
+          "missing_or_constant_in_target": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "wlan.ssid"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID2->AWID3 | F-chatz | LR",
+          "direction": "AWID2->AWID3",
+          "seeds": 1,
+          "fields": [
+            "frame.len",
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype"
+          ],
+          "missing_or_constant_in_target": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID2->AWID3 | F-chatz | MLP",
+          "direction": "AWID2->AWID3",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype"
+          ],
+          "missing_or_constant_in_target": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "radiotap.channel.freq"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID2->AWID3 | F-noA | DT",
+          "direction": "AWID2->AWID3",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "wlan.duration",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.fixed.reason_code",
+            "wlan.fixed.timestamp",
+            "wlan.seq",
+            "wlan.ssid",
+            "data.len"
+          ],
+          "missing_or_constant_in_target": [
+            "wlan.ssid"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID3->AWID2 | F-all | DT",
+          "direction": "AWID3->AWID2",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.order",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ta"
+          ],
+          "missing_or_constant_in_target": [
+            "wlan.fc.order"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID3->AWID2 | F-all | LR",
+          "direction": "AWID3->AWID2",
+          "seeds": 1,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.order",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ta"
+          ],
+          "missing_or_constant_in_target": [
+            "wlan.fc.order"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        },
+        {
+          "configuration": "AWID3->AWID2 | F-all | MLP",
+          "direction": "AWID3->AWID2",
+          "seeds": 5,
+          "fields": [
+            "frame.len",
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.datarate",
+            "radiotap.dbm_antsignal",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.duration",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.fc.ds",
+            "wlan.fc.frag",
+            "wlan.fc.order",
+            "wlan.fc.moredata",
+            "wlan.fc.protected",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.type",
+            "wlan.fc.retry",
+            "wlan.fc.subtype",
+            "wlan.ra",
+            "wlan.sa",
+            "wlan.seq",
+            "wlan.ta"
+          ],
+          "missing_or_constant_in_target": [
+            "wlan.fc.order"
+          ],
+          "all_fields_missing_or_constant_in_target": false
+        }
+      ]
+    },
+    "c_field_shift": {
+      "normal_frames_sampled": {
+        "awid3": 200000,
+        "awid2": 200000
+      },
+      "fields": [
+        {
+          "field": "frame.len",
+          "family": "C",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.402,
+          "awid2_outside_awid3_range": 0.402,
+          "awid3_outside_awid2_range": 0.2142,
+          "shift": "moderate"
+        },
+        {
+          "field": "frame.time_delta",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.6832,
+          "awid2_outside_awid3_range": 0.0004,
+          "awid3_outside_awid2_range": 0.0009,
+          "shift": "large"
+        },
+        {
+          "field": "frame.time_delta_displayed",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.6832,
+          "awid2_outside_awid3_range": 0.0004,
+          "awid3_outside_awid2_range": 0.0009,
+          "shift": "large"
+        },
+        {
+          "field": "frame.time_epoch",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 1.0,
+          "awid2_outside_awid3_range": 1.0,
+          "awid3_outside_awid2_range": 1.0,
+          "shift": "large"
+        },
+        {
+          "field": "frame.time_relative",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.6779,
+          "awid2_outside_awid3_range": 0.6786,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "radiotap.channel.flags.cck",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 0.3696,
+          "awid2_outside_awid3_range": 0.3696,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "moderate"
+        },
+        {
+          "field": "radiotap.channel.flags.ofdm",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 0.3696,
+          "awid2_outside_awid3_range": 0.3696,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "moderate"
+        },
+        {
+          "field": "radiotap.channel.freq",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 1.0,
+          "awid2_outside_awid3_range": 1.0,
+          "awid3_outside_awid2_range": 1.0,
+          "shift": "large"
+        },
+        {
+          "field": "radiotap.datarate",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.4051,
+          "missing_awid2": 0.0,
+          "ks": 0.3638,
+          "awid2_outside_awid3_range": 0.3418,
+          "awid3_outside_awid2_range": 0.0001,
+          "shift": "moderate"
+        },
+        {
+          "field": "radiotap.dbm_antsignal",
+          "family": "C",
+          "kind": "text",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 0.7873,
+          "awid2_outside_awid3_range": 0.001,
+          "awid3_outside_awid2_range": 0.003,
+          "shift": "large"
+        },
+        {
+          "field": "radiotap.length",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 1.0,
+          "awid2_outside_awid3_range": 1.0,
+          "awid3_outside_awid2_range": 1.0,
+          "shift": "large"
+        },
+        {
+          "field": "radiotap.mactime",
+          "family": "A",
+          "kind": "numeric",
+          "missing_awid3": 0.4052,
+          "missing_awid2": 0.0006,
+          "ks": 0.7538,
+          "awid2_outside_awid3_range": 1.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "radiotap.present.tsft",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.5948,
+          "awid2_outside_awid3_range": 0.0006,
+          "awid3_outside_awid2_range": 0.5948,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.duration",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 0.6649,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.bssid",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.5882,
+          "missing_awid2": 0.296,
+          "ks": 0.9036,
+          "awid2_outside_awid3_range": 0.0954,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.da",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.5884,
+          "missing_awid2": 0.2966,
+          "ks": 0.5412,
+          "awid2_outside_awid3_range": 0.0002,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.fc.ds",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.093,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.frag",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0001,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.order",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.moredata",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0016,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.protected",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0783,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.pwrmgt",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0044,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.type",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.1985,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "moderate"
+        },
+        {
+          "field": "wlan.fc.retry",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.0882,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fc.subtype",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0,
+          "ks": 0.2593,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "moderate"
+        },
+        {
+          "field": "wlan.fixed.beacon",
+          "family": "C",
+          "kind": "numeric",
+          "missing_awid3": 0.9972,
+          "missing_awid2": 0.9066,
+          "ks": 0.0,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fixed.capabilities.ess",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.9972,
+          "missing_awid2": 0.8946,
+          "ks": 0.0,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fixed.capabilities.ibss",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.9972,
+          "missing_awid2": 0.8946,
+          "ks": 0.0,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.fixed.reason_code",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 1.0,
+          "missing_awid2": 0.9154,
+          "ks": 0.6667,
+          "awid2_outside_awid3_range": 0.0954,
+          "awid3_outside_awid2_range": 0.6667,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.fixed.timestamp",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.9972,
+          "missing_awid2": 0.9066,
+          "ks": 0.7123,
+          "awid2_outside_awid3_range": 0.7151,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.ra",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.0,
+          "missing_awid2": 0.0006,
+          "ks": 0.4807,
+          "awid2_outside_awid3_range": 0.1803,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "moderate"
+        },
+        {
+          "field": "wlan.sa",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.5882,
+          "missing_awid2": 0.2966,
+          "ks": 0.5693,
+          "awid2_outside_awid3_range": 0.1093,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.seq",
+          "family": "U",
+          "kind": "numeric",
+          "missing_awid3": 0.5881,
+          "missing_awid2": 0.2966,
+          "ks": 0.0216,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "small"
+        },
+        {
+          "field": "wlan.ssid",
+          "family": "C",
+          "kind": "text",
+          "missing_awid3": 0.9971,
+          "missing_awid2": 0.9023,
+          "ks": 0.9997,
+          "awid2_outside_awid3_range": 1.0,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.ta",
+          "family": "A",
+          "kind": "text",
+          "missing_awid3": 0.2042,
+          "missing_awid2": 0.2954,
+          "ks": 0.6031,
+          "awid2_outside_awid3_range": 0.2049,
+          "awid3_outside_awid2_range": 0.0,
+          "shift": "large"
+        },
+        {
+          "field": "wlan.rsn.capabilities.mfpc",
+          "family": "S",
+          "kind": "numeric",
+          "missing_awid3": 0.9972,
+          "missing_awid2": 0.9493,
+          "ks": 0.948,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.948,
+          "shift": "large"
+        },
+        {
+          "field": "data.len",
+          "family": "U",
+          "kind": "text",
+          "missing_awid3": 0.9942,
+          "missing_awid2": 0.5117,
+          "ks": 0.6342,
+          "awid2_outside_awid3_range": 0.0,
+          "awid3_outside_awid2_range": 0.0769,
+          "shift": "large"
+        }
+      ],
+      "by_family": {
+        "C": {
+          "moderate": [
+            "frame.len"
+          ],
+          "large": [
+            "radiotap.dbm_antsignal",
+            "wlan.ssid"
+          ],
+          "small": [
+            "wlan.fixed.beacon"
+          ]
+        },
+        "A": {
+          "large": [
+            "frame.time_delta",
+            "frame.time_delta_displayed",
+            "frame.time_epoch",
+            "frame.time_relative",
+            "radiotap.channel.freq",
+            "radiotap.length",
+            "radiotap.mactime",
+            "radiotap.present.tsft",
+            "wlan.bssid",
+            "wlan.da",
+            "wlan.sa",
+            "wlan.ta"
+          ],
+          "moderate": [
+            "radiotap.channel.flags.cck",
+            "radiotap.channel.flags.ofdm",
+            "wlan.ra"
+          ]
+        },
+        "U": {
+          "moderate": [
+            "radiotap.datarate"
+          ],
+          "large": [
+            "wlan.duration",
+            "wlan.fixed.timestamp",
+            "data.len"
+          ],
+          "small": [
+            "wlan.fc.frag",
+            "wlan.fc.order",
+            "wlan.fc.moredata",
+            "wlan.fc.pwrmgt",
+            "wlan.fc.retry",
+            "wlan.seq"
+          ]
+        },
+        "S": {
+          "small": [
+            "wlan.fc.ds",
+            "wlan.fc.protected",
+            "wlan.fixed.capabilities.ess",
+            "wlan.fixed.capabilities.ibss"
+          ],
+          "moderate": [
+            "wlan.fc.type",
+            "wlan.fc.subtype"
+          ],
+          "large": [
+            "wlan.fixed.reason_code",
+            "wlan.rsn.capabilities.mfpc"
+          ]
+        }
+      },
+      "dbm_antsignal_codes": {
+        "distinct_values": 931,
+        "codes_match_matrix_awid3": true,
+        "codes_match_matrix_awid2": true,
+        "frames": 5944858,
+        "first_value_unreadable_frames": 299998,
+        "spearman_code_vs_first_antenna_value": 0.3656,
+        "order_kept": false,
+        "examples_in_code_order": [
+          "-10",
+          "-100",
+          "-101",
+          "-102",
+          "-103",
+          "-95",
+          "-96",
+          "-97",
+          "-98",
+          "-99"
+        ]
+      }
+    },
+    "d_lr_f_chatz_announcements": {
+      "s5_pr_auc_ET-B": 0.8848,
+      "refit_pr_auc_ET-B": 0.8848,
+      "reproduces_s5": true,
+      "announcements": 206047,
+      "attack_announcements": 3205,
+      "chance": 0.0156,
+      "pr_auc_ET-B": 0.8848,
+      "one_field_fixed": [
+        {
+          "field": "frame.len",
+          "family": "C",
+          "pr_auc_ET-B": 0.5612,
+          "drop": 0.3236
+        },
+        {
+          "field": "wlan.fc.subtype",
+          "family": "S",
+          "pr_auc_ET-B": 0.877,
+          "drop": 0.0078
+        },
+        {
+          "field": "radiotap.dbm_antsignal",
+          "family": "C",
+          "pr_auc_ET-B": 0.8787,
+          "drop": 0.0061
+        },
+        {
+          "field": "radiotap.length",
+          "family": "A",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "radiotap.present.tsft",
+          "family": "A",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.ds",
+          "family": "S",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.frag",
+          "family": "U",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.moredata",
+          "family": "U",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.protected",
+          "family": "S",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.type",
+          "family": "S",
+          "pr_auc_ET-B": 0.8848,
+          "drop": 0.0
+        },
+        {
+          "field": "wlan.fc.pwrmgt",
+          "family": "U",
+          "pr_auc_ET-B": 0.8877,
+          "drop": -0.0028
+        },
+        {
+          "field": "wlan.fc.retry",
+          "family": "U",
+          "pr_auc_ET-B": 0.8903,
+          "drop": -0.0055
+        },
+        {
+          "field": "wlan.duration",
+          "family": "U",
+          "pr_auc_ET-B": 0.8914,
+          "drop": -0.0066
+        }
+      ],
+      "coefficients_standardised": [
+        {
+          "input": "wlan.fc.ds",
+          "coefficient": 15.987
+        },
+        {
+          "input": "wlan.fc.protected",
+          "coefficient": -12.6571
+        },
+        {
+          "input": "wlan.fc.type",
+          "coefficient": -5.0352
+        },
+        {
+          "input": "frame.len",
+          "coefficient": -4.2852
+        },
+        {
+          "input": "radiotap.length",
+          "coefficient": 2.3926
+        },
+        {
+          "input": "radiotap.present.tsft",
+          "coefficient": -0.9445
+        },
+        {
+          "input": "radiotap.dbm_antsignal",
+          "coefficient": -0.3324
+        },
+        {
+          "input": "wlan.fc.retry",
+          "coefficient": -0.0931
+        },
+        {
+          "input": "wlan.fc.moredata",
+          "coefficient": 0.0896
+        },
+        {
+          "input": "wlan.duration",
+          "coefficient": -0.0873
+        },
+        {
+          "input": "wlan.fc.frag",
+          "coefficient": 0.0627
+        },
+        {
+          "input": "wlan.fc.subtype",
+          "coefficient": -0.0357
+        },
+        {
+          "input": "wlan.fc.pwrmgt",
+          "coefficient": -0.0156
+        }
+      ],
+      "fields_whose_fixing_brings_ET-B_below_0.1": []
+    }
+  }
+}

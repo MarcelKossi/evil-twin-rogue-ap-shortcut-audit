@@ -1,9 +1,9 @@
 {
   "meta": {
     "script": "scripts/16_rv2_80211_checks.py (pcap archive check)",
-    "git_commit": "51834e7d4c3c0059afa54ee5e84be095c45fe8e3",
+    "git_commit": "48ef41e65d414a58f1f85cc64f775c4201221754",
     "uncommitted_files": [],
-    "timestamp_utc": "2026-11-27T08:27:05+00:00",
+    "timestamp_utc": "2026-11-27T08:56:36+00:00",
     "python": "3.11.5",
     "platform": "Windows-10-10.0.26100-SP0",
     "packages": {
@@ -40,6 +40,132 @@
         "found": 0,
         "last_one_bytes_before_end": null
       }
+    },
+    "read_from_start": {
+      "members_found": 15,
+      "after_last_member": "file ends inside this member",
+      "members": [
+        {
+          "name": "AWID3_Dataset/",
+          "method": 0,
+          "encrypted": false,
+          "compressed": 0,
+          "uncompressed": 0,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/",
+          "method": 0,
+          "encrypted": false,
+          "compressed": 0,
+          "uncompressed": 0,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/1. Deauth.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 548562951,
+          "uncompressed": 696750712,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/10. Malware.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1052645390,
+          "uncompressed": 1318660915,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/11. SSDP.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1516476229,
+          "uncompressed": 2490578874,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/12. Botnet.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1352134361,
+          "uncompressed": 1668750278,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/13. Website_spoofing.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 751382553,
+          "uncompressed": 1025086742,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/2. Disass.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 647807894,
+          "uncompressed": 838616598,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/3. (Re)Assoc.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 780298656,
+          "uncompressed": 955103301,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/4. Rogue_AP.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 668394720,
+          "uncompressed": 869167299,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/5. Krack.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 712787397,
+          "uncompressed": 977962836,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/6. Kr00k.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1067819667,
+          "uncompressed": 1329893905,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/7. Evil_Twin.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1620799945,
+          "uncompressed": 2015353647,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/8. SQL_Injection.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 1231247350,
+          "uncompressed": 1468226646,
+          "complete": true
+        },
+        {
+          "name": "AWID3_Dataset/pcaps/9. SSH.pcap",
+          "method": 8,
+          "encrypted": false,
+          "compressed": 863528754,
+          "uncompressed": 1131910532,
+          "complete": false
+        }
+      ]
     }
   }
 }
