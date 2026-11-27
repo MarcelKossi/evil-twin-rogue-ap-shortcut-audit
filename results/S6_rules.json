@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "script": "scripts/14_s6_rules.py",
+    "git_commit": "2dabf53646a3a4bc0862c91a95e32fe8ffe969c2",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-26T23:08:42+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.3.3",
+      "pyarrow": "22.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": null
+    },
+    "inputs_sha256": {
+      "S5_transfer.json": "01cb21aed0514f423fb27b68740775d044efcea12695c59dd5b170361d492dd9",
+      "awid2_columns.txt": "ee49eea95dc853bb09e248cb167965ce6d898aad1f8d8be972d9dde902f319e9"
+    }
+  },
+  "results": {
+    "awid3_rogue_ap": {
+      "prevalence": 0.0006639012560910407,
+      "pr_auc": 0.3044317335541388,
+      "roc_auc": 0.997706213280749,
+      "frames": 1973185,
+      "attack": 1310,
+      "pr_auc_ET-B": 0.7529499518089738,
+      "attack_ET-B": 1310,
+      "pr_auc_ET-D": null,
+      "attack_ET-D": 0,
+      "reference": {
+        "announcements": 634,
+        "known_ssids": [
+          "ASUS_5G"
+        ],
+        "whitelist": [
+          "0c:9d:92:54:fe:34"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "applicable": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "per_rule": {
+        "R1": {
+          "fires": 0,
+          "on_attack": 0
+        },
+        "R2": {
+          "fires": 1764,
+          "on_attack": 1310
+        },
+        "R3": {
+          "fires": 7363,
+          "on_attack": 258
+        },
+        "R4": {
+          "fires": 1408,
+          "on_attack": 1180
+        },
+        "R5": {
+          "fires": 62428,
+          "on_attack": 0
+        }
+      },
+      "profile_fields": [
+        "wlan.fixed.capabilities.ess",
+        "wlan.fixed.capabilities.ibss",
+        "wlan.rsn.capabilities.mfpc",
+        "wlan.rsn.ie.gtk.key",
+        "wlan.rsn.ie.igtk.key",
+        "wlan.rsn.ie.pmkid"
+      ]
+    },
+    "awid3_evil_twin": {
+      "prevalence": 0.027741705500784797,
+      "pr_auc": 0.08100651816969692,
+      "roc_auc": 0.5318392609789769,
+      "frames": 3778679,
+      "attack": 104827,
+      "pr_auc_ET-B": 0.8418699928232938,
+      "attack_ET-B": 3594,
+      "pr_auc_ET-D": 0.09165453784407895,
+      "attack_ET-D": 101184,
+      "reference": {
+        "announcements": 631,
+        "known_ssids": [
+          "ASUS_5G"
+        ],
+        "whitelist": [
+          "0c:9d:92:54:fe:34"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "applicable": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "per_rule": {
+        "R1": {
+          "fires": 4366,
+          "on_attack": 3594
+        },
+        "R2": {
+          "fires": 4366,
+          "on_attack": 3594
+        },
+        "R3": {
+          "fires": 3643,
+          "on_attack": 3523
+        },
+        "R4": {
+          "fires": 5,
+          "on_attack": 2
+        },
+        "R5": {
+          "fires": 0,
+          "on_attack": 0
+        }
+      },
+      "profile_fields": [
+        "wlan.fixed.capabilities.ess",
+        "wlan.fixed.capabilities.ibss",
+        "wlan.rsn.capabilities.mfpc",
+        "wlan.rsn.ie.gtk.key",
+        "wlan.rsn.ie.igtk.key",
+        "wlan.rsn.ie.pmkid"
+      ]
+    },
+    "awid2": {
+      "prevalence": 0.0014968491878301177,
+      "pr_auc": 0.5424168047910517,
+      "roc_auc": 0.9467637803877639,
+      "frames": 2167219,
+      "attack": 3244,
+      "pr_auc_ET-B": 0.6451707242306886,
+      "attack_ET-B": 3205,
+      "pr_auc_ET-D": null,
+      "attack_ET-D": 0,
+      "reference": {
+        "announcements": 2571,
+        "known_ssids": [
+          "AegeanSecLab",
+          "CYTA 8D28",
+          "CYTA C565",
+          "Hol Gounaris",
+          "NetFasteR IAD 2 (PSTN)",
+          "OTE29224e",
+          "Oxygen-13010",
+          "Roma pizza",
+          "conn-x7F395E",
+          "mhxskl140",
+          "pnet",
+          "tsoureas"
+        ],
+        "whitelist": [
+          "00:05:59:2c:98:63",
+          "00:05:59:2e:62:b8",
+          "00:13:33:87:62:6d",
+          "00:1d:19:88:e4:a8",
+          "00:1d:1c:9f:ba:4f",
+          "28:c6:8e:86:d3:d6",
+          "38:22:9d:ae:c5:65",
+          "38:22:9d:c4:8d:28",
+          "48:28:2f:35:17:ba",
+          "b0:48:7a:e2:62:23",
+          "dc:02:8e:7f:39:5e",
+          "fc:0a:81:0f:dc:70"
+        ],
+        "attack_frames_in_first_minute": 0
+      },
+      "applicable": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "per_rule": {
+        "R1": {
+          "fires": 5,
+          "on_attack": 0
+        },
+        "R2": {
+          "fires": 7775,
+          "on_attack": 1761
+        },
+        "R3": {
+          "fires": 16752,
+          "on_attack": 2629
+        },
+        "R4": {
+          "fires": 4813,
+          "on_attack": 2514
+        },
+        "R5": {
+          "fires": 180999,
+          "on_attack": 0
+        }
+      },
+      "profile_fields": [
+        "wlan.fixed.capabilities.agility",
+        "wlan.fixed.capabilities.apsd",
+        "wlan.fixed.capabilities.cfpoll.ap",
+        "wlan.fixed.capabilities.del_blk_ack",
+        "wlan.fixed.capabilities.dsss_ofdm",
+        "wlan.fixed.capabilities.ess",
+        "wlan.fixed.capabilities.ibss",
+        "wlan.fixed.capabilities.imm_blk_ack",
+        "wlan.fixed.capabilities.pbcc",
+        "wlan.fixed.capabilities.preamble",
+        "wlan.fixed.capabilities.privacy",
+        "wlan.fixed.capabilities.radio_measurement",
+        "wlan.fixed.capabilities.short_slot_time",
+        "wlan.fixed.capabilities.spec_man",
+        "wlan.rsn.akms.count",
+        "wlan.rsn.akms.type",
+        "wlan.rsn.capabilities.gtksa_replay_counter",
+        "wlan.rsn.capabilities.mfpc",
+        "wlan.rsn.capabilities.mfpr",
+        "wlan.rsn.capabilities.no_pairwise",
+        "wlan.rsn.capabilities.peerkey",
+        "wlan.rsn.capabilities.preauth",
+        "wlan.rsn.capabilities.ptksa_replay_counter",
+        "wlan.rsn.gcs.type",
+        "wlan.rsn.pcs.count",
+        "wlan.rsn.version"
+      ]
+    },
+    "H3b_rule_part": {
+      "pairs": 10,
+      "rule_pr_auc": [
+        0.081,
+        0.5424
+      ],
+      "median_model_transfer_pr_auc": 0.022350000000000002,
+      "wilcoxon_p_one_sided": 0.001953125,
+      "note": "rule transfer gap is 0 by construction (no labelled training); Holm in S8"
+    }
+  }
+}

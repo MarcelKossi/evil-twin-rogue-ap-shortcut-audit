@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "script": "scripts/16_rv2_80211_checks.py (pcap archive check)",
+    "git_commit": "2dabf53646a3a4bc0862c91a95e32fe8ffe969c2",
+    "uncommitted_files": [],
+    "timestamp_utc": "2026-11-27T05:00:54+00:00",
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.3.3",
+      "pyarrow": "22.0.0",
+      "scikit-learn": "1.5.2",
+      "xgboost": null
+    }
+  },
+  "results": {
+    "archive": "AWID3_Dataset.zip",
+    "bytes": 12063714960,
+    "first_bytes": "504b03040a000000",
+    "format_from_first_bytes": "zip",
+    "last_mib": {
+      "end of central directory": {
+        "found": 0,
+        "last_one_bytes_before_end": null
+      },
+      "zip64 end record": {
+        "found": 0,
+        "last_one_bytes_before_end": null
+      },
+      "zip64 locator": {
+        "found": 0,
+        "last_one_bytes_before_end": null
+      },
+      "central directory entries": {
+        "found": 0,
+        "last_one_bytes_before_end": null
+      },
+      "local file headers": {
+        "found": 0,
+        "last_one_bytes_before_end": null
+      }
+    }
+  }
+}
