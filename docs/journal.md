@@ -367,3 +367,7 @@ and any deviation from `docs/protocol_v0.3.md`.
   - `frame.time_delta` keeps its precision in both styles (at most 0.25% of zeros per file).
   - **R3:** every file inside the attack window gives `frame.time_epoch` in whole seconds, so the "less than 1 s apart" condition of R3 is not measured as defined there. As set on 2026-11-27, R3 is reported as not interpretable in AWID3 (both captures). The 1-second window of R5 has the same problem; I had not written that down in advance.
 - **pcap archive.** `data/AWID3_Dataset.zip` (12,063,714,960 bytes) starts with a zip local file header, but its last MiB holds no zip record at all (no end of central directory, no central directory entry, no local file header). It is not a complete zip: either cut inside a large member or ended with filler bytes. The `pcap` part cannot run on it as it is.
+
+## 2026-11-27 - Re-ran S6 v2, the file format check and the pcap archive check in the virtual environment
+
+- Re-ran the three scripts in the project's virtual environment at commit 51834e7 (clean tree; numpy 1.26.4, pandas 2.2.3, pyarrow 17.0.0, scikit-learn 1.5.2, XGBoost 2.1.1). Every value of `results/S6_rules.json`, `results/RV3_file_format.json` and `results/RV2_pcap_archive.json` is identical to the run of the previous entry, so its numbers stand; only the recorded versions changed.
