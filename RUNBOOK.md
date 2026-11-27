@@ -308,3 +308,24 @@ git add results
 git commit -m "S6 re-run, file format check and pcap archive diagnostic: results"
 git push
 ```
+
+## 20. pcap check read from the start of the archive (exploratory)
+
+| Command | Output | Time |
+|---|---|---|
+| `python scripts/16_rv2_80211_checks.py --part pcap` | `results/RV2_pcap_archive.json` (members found, complete or cut), `results/RV2_pcap.json` | about 15-40 min (reads the 12 GB archive from its start) |
+
+The archive has no central directory, so its members are read from the start through their
+local headers and decompressed in memory; nothing is extracted to disk. A member cut by the end
+of the file is read up to the cut and its result is marked as partial.
+
+```cmd
+.venv\Scripts\activate.bat
+where python
+git add scripts/16_rv2_80211_checks.py docs/journal.md RUNBOOK.md
+git commit -m "pcap check: read an archive without central directory from its start (exploratory)"
+python scripts/16_rv2_80211_checks.py --part pcap
+git add results
+git commit -m "pcap check read from the start of the archive: results"
+git push
+```

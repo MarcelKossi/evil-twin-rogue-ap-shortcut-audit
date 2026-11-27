@@ -13,7 +13,10 @@ Three parts, one result file each; a finished part is skipped unless --force.
          with the parser below (radiotap, 802.11 header, information elements): privacy and ESS
          bits, RSN element (ciphers, AKM, MFPC, MFPR), WPA element, country, SSID. Frames are
          matched to the CSV by position in the capture; agreement of length, BSSID and subtype
-         is checked before anything is read.
+         is checked before anything is read. When the archive has no central directory (an
+         incomplete download), its members are read from the start, one local header after the
+         other, and decompressed in memory; nothing is extracted to disk. A member cut by the
+         end of the file is read up to the cut and its result is marked as partial.
 
 Usage (from the repository root):
     python scripts/16_rv2_80211_checks.py --layout        # list the pcap members, nothing written
@@ -31,6 +34,7 @@ import json
 import struct
 import sys
 import zipfile
+import zlib
 from collections import Counter
 from pathlib import Path
 
@@ -340,7 +344,10 @@ def pcap_packets(stream):
         rec = struct.Struct(e + "IIII")
         while len(h := stream.read(16)) == 16:
             _, _, incl, orig = rec.unpack(h)
-            yield orig, link, stream.read(incl)
+            data = stream.read(incl)
+            if len(data) < incl:                             # stream cut inside a packet
+                return
+            yield orig, link, data
         return
     if head != b"\x0a\x0d\x0d\x0a":
         raise ValueError(f"not a pcap or pcapng stream (magic {head.hex()})")
@@ -352,7 +359,13 @@ def pcap_packets(stream):
             stream.read(struct.unpack(e + "I", raw_len)[0] - 12)
             links = []
         else:
-            body = stream.read(struct.unpack(e + "I", stream.read(4))[0] - 8)
+            raw_len = stream.read(4)
+            if len(raw_len) < 4:
+                return
+            size = struct.unpack(e + "I", raw_len)[0] - 8
+            body = stream.read(size)
+            if len(body) < size:                             # stream cut inside a block
+                return
             code = struct.unpack(e + "I", btype)[0]
             if code == 1:                                    # interface description
                 links.append(struct.unpack_from(e + "H", body, 0)[0])
@@ -470,87 +483,203 @@ def describe_archive(path: Path) -> dict:
     return out
 
 
-def open_pcap_zip(paths: dict) -> zipfile.ZipFile:
+LOCAL, DESCRIPTOR, CHUNK = b"PK\x03\x04", b"PK\x07\x08", 8 << 20
+ANN_COLS = ["subtype", "bssid", "privacy", "ess", "rsn", "wpa_element", "country", "ssid", "elements", "fn", "orig_len"]
+
+
+def _inflate_end(fh, start: int) -> tuple[int | None, int]:
+    """Compressed and uncompressed lengths of the deflate stream at `start`; None if the file ends first."""
+    d, fed, out = zlib.decompressobj(-15), 0, 0
+    fh.seek(start)
+    while not d.eof:
+        chunk = fh.read(CHUNK)
+        if not chunk:
+            return None, out
+        fed += len(chunk)
+        while chunk and not d.eof:
+            out += len(d.decompress(chunk, CHUNK))
+            chunk = d.unconsumed_tail
+    return fed - len(d.unused_data), out
+
+
+def walk_zip(path: Path) -> tuple[list[dict], str]:
+    """Members of a zip read from its start, one local header after the other (no central directory
+    needed), and what follows the last member read."""
+    size, members, pos = path.stat().st_size, [], 0
+    with open(path, "rb") as fh:
+        while True:
+            fh.seek(pos)
+            head = fh.read(30)
+            if head[:4] != LOCAL:
+                ends = {b"PK\x01\x02": "central directory", b"PK\x06\x06": "zip64 end record",
+                        b"PK\x05\x06": "end of central directory"}
+                return members, ends.get(head[:4], "end of file" if not head else f"other bytes ({head[:4].hex()})")
+            if len(head) < 30:
+                return members, "file ends inside a local header"
+            _, _, flags, method, _, _, _, csize, usize, nlen, xlen = struct.unpack("<4sHHHHHIIIHH", head)
+            name = fh.read(nlen).decode("utf-8" if flags & 0x800 else "cp437", "replace")
+            extra, zip64, o = fh.read(xlen), False, 0
+            while o + 4 <= len(extra):
+                hid, hlen = struct.unpack_from("<HH", extra, o)
+                if hid == 1:                                 # zip64 sizes
+                    zip64, k = True, o + 4
+                    if usize == 0xFFFFFFFF:
+                        usize, k = struct.unpack_from("<Q", extra, k)[0], k + 8
+                    if csize == 0xFFFFFFFF:
+                        csize = struct.unpack_from("<Q", extra, k)[0]
+                o += 4 + hlen
+            data = pos + 30 + nlen + xlen
+            m = {"name": name, "method": method, "encrypted": bool(flags & 1), "data_offset": data,
+                 "compressed": None, "uncompressed": None, "complete": False}
+            members.append(m)
+            if flags & 0x8:                                  # sizes stored after the data
+                if method != 8:
+                    return members, f"sizes unknown for compression method {method}"
+                csize, usize = _inflate_end(fh, data)
+                if csize is None:
+                    m["uncompressed_before_cut"] = usize
+                    return members, "file ends inside this member"
+            m["compressed"], m["uncompressed"] = csize, usize
+            if data + csize > size:
+                return members, "file ends inside this member"
+            m["complete"] = True
+            pos = data + csize
+            if flags & 0x8:                                  # data descriptor
+                fh.seek(pos)
+                pos += (4 if fh.read(4) == DESCRIPTOR else 0) + 4 + (16 if zip64 else 8)
+
+
+class MemberReader:
+    """Uncompressed bytes of one zip member, decompressed from its data offset; stops at the end of
+    the member or of the file, whichever comes first."""
+
+    def __init__(self, path: Path, m: dict):
+        if m["method"] not in (0, 8) or m["encrypted"]:
+            raise ValueError(f"{m['name']}: compression method {m['method']} or encryption not handled")
+        self.fh = open(path, "rb")
+        self.fh.seek(m["data_offset"])
+        self.left = m["compressed"] if m["compressed"] is not None else float("inf")
+        self.d = zlib.decompressobj(-15) if m["method"] == 8 else None
+        self.buf, self.pos, self.done = b"", 0, False
+
+    def _fill(self, n: int) -> None:
+        while len(self.buf) - self.pos < max(n, CHUNK) and not self.done:
+            chunk = self.fh.read(int(min(CHUNK, self.left))) if self.left > 0 else b""
+            self.left -= len(chunk)
+            out = chunk if self.d is None else self.d.decompress(chunk)
+            self.done = not chunk or (self.d is not None and self.d.eof)
+            self.buf, self.pos = self.buf[self.pos:] + out, 0
+
+    def read(self, n: int) -> bytes:
+        if len(self.buf) - self.pos < n:
+            self._fill(n)
+        r = self.buf[self.pos:self.pos + n]
+        self.pos += len(r)
+        return r
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.fh.close()
+
+
+def pcap_sources(paths: dict) -> tuple[dict, dict]:
+    """Per capture class, (member name, opener, complete) in natural order, and how the archive was read."""
+    path = paths["awid3_pcap_zip"]
     try:
-        return zipfile.ZipFile(paths["awid3_pcap_zip"])
+        zf = zipfile.ZipFile(path)
     except zipfile.BadZipFile:
-        diag = describe_archive(paths["awid3_pcap_zip"])
-        meta = run_metadata("scripts/16_rv2_80211_checks.py (pcap archive check)")
-        print(f"[RV2] written: {write_result('RV2_pcap_archive', {'results': diag}, meta)}")
-        raise SystemExit("[RV2] the pcap archive cannot be opened as a zip; see the lines above")
+        diag = describe_archive(path)
+        members, after = walk_zip(path)
+        keep = ("name", "method", "encrypted", "compressed", "uncompressed", "complete", "uncompressed_before_cut")
+        diag["read_from_start"] = {"members_found": len(members), "after_last_member": after,
+                                   "members": [{k: m[k] for k in keep if k in m} for m in members]}
+        print(f"[RV2] read from the start: {len(members)} members, then: {after}", flush=True)
+        src = {}
+        for cls in CAPTURES.values():
+            mem = sorted((m for m in members if not m["name"].endswith("/") and class_of(m["name"]) == cls),
+                         key=lambda m: natural_key(m["name"]))
+            src[cls] = [(m["name"], (lambda m=m: MemberReader(path, m)), m["complete"]) for m in mem]
+        return src, {"read": "from the start, without the central directory", "diagnostic": diag}
+    src = {cls: [(i.filename, (lambda i=i: io.BufferedReader(zf.open(i), buffer_size=CHUNK)), True)
+                 for i in pcap_members(zf, cls)] for cls in CAPTURES.values()}
+    return src, {"read": "central directory"}
 
 
 def layout(paths: dict) -> None:
-    with open_pcap_zip(paths) as zf:
-        tops = Counter(i.filename.replace("\\", "/").split("/")[0] for i in zf.infolist())
-        print(f"[RV2] {sum(tops.values())} members; top-level: {dict(tops)}")
-        folders = Counter("/".join(i.filename.replace("\\", "/").split("/")[:-1]) for i in zf.infolist()
-                          if not i.is_dir())
-        for f, n in sorted(folders.items(), key=lambda x: natural_key(x[0])):
-            print(f"[RV2]   {f}: {n} files")
-        for cls in CAPTURES.values():
-            mem = pcap_members(zf, cls)
-            print(f"[RV2] {cls}: {len(mem)} members")
-            for i in (mem if len(mem) <= 5 else mem[:3] + mem[-2:]):
-                with zf.open(i) as fh:
-                    magic = fh.read(4).hex()
-                print(f"[RV2]   {i.filename}  {i.file_size:,} bytes  magic {magic}")
+    src, how = pcap_sources(paths)
+    print(f"[RV2] archive read: {how['read']}")
+    for cls, mem in src.items():
+        print(f"[RV2] {cls}: {len(mem)} members")
+        for name, opener, complete in mem:
+            with opener() as fh:
+                magic = fh.read(4).hex()
+            print(f"[RV2]   {name}  complete: {complete}  magic {magic}")
 
 
 def part_pcap(paths: dict) -> dict:
-    out = {}
-    with open_pcap_zip(paths) as zf:
-        for cap, cls in CAPTURES.items():
-            rows, n, links, per_member = [], 0, Counter(), {}
-            for info in pcap_members(zf, cls):
-                first = n
-                with zf.open(info) as raw:
-                    stream = io.BufferedReader(raw, buffer_size=8 << 20)
-                    for orig, link, data in pcap_packets(stream):
-                        n += 1
-                        links[link] += 1
-                        a = announcement(data, link)
-                        if a is not None:
-                            a["fn"], a["orig_len"] = n, orig
-                            rows.append(a)
-                per_member[info.filename] = n - first
-                print(f"[RV2] {cls}: {info.filename} {n - first:,} packets (total {n:,})", flush=True)
-            pc = pd.DataFrame(rows)
-            csv_cols = ["frame.number", "frame.len", "wlan.fc.type", "wlan.fc.subtype", "wlan.bssid", "Label",
-                        "wlan.rsn.capabilities.mfpc", "wlan.country_info.code"]
-            csv, last = [], 0
-            for df in iter_parquet(paths["interim_dir"] / f"awid3_{cap}.parquet", csv_cols, 200_000):
-                fn = to_int(df["frame.number"])
-                last = max(last, int(fn.max()))
-                m = ((to_int(df["wlan.fc.type"]) == 0) & to_int(df["wlan.fc.subtype"]).isin([5, 8])).fillna(False)
-                csv.append(df[m.to_numpy(bool)].assign(fn=fn[m.to_numpy(bool)]))
-            csv = pd.concat(csv)
-            csv = csv[csv["fn"].notna()].astype({"fn": "int64"}).drop_duplicates("fn", keep=False)
-            j = pc.merge(csv, on="fn", how="left", indicator=True)
-            matched = j["_merge"] == "both"
-            jm = j[matched]
-            agree = {"length": int((to_int(jm["frame.len"]) == jm["orig_len"]).sum()),
-                     "bssid": int((jm["wlan.bssid"].str.lower() == jm["bssid"]).sum()),
-                     "subtype": int((to_int(jm["wlan.fc.subtype"]) == jm["subtype"]).sum())}
-            share = min(agree.values()) / max(int(matched.sum()), 1)
-            valid = n == last and share >= 0.999
-            j["label"] = j["Label"].fillna("<no CSV row>")
-            groups = []
-            for (b, st, ln, lab), g in j.groupby(["bssid", "subtype", "orig_len", "label"]):
-                if not (b.startswith("0c:9d:92:54:fe") or (g["ssid"] == "ASUS_5G").any()):
-                    continue
-                groups.append({"bssid": b, "subtype": "beacon" if st == 8 else "probe response", "frame_len": int(ln),
-                               "label": lab, "n": int(len(g)), "frame_numbers": [int(g["fn"].min()), int(g["fn"].max())],
-                               "privacy": counts(g["privacy"]), "ess": counts(g["ess"]), "rsn": counts(g["rsn"], 5, full=True),
-                               "wpa_element": counts(g["wpa_element"]), "country": counts(g["country"]),
-                               "ssid": counts(g["ssid"], 3, full=True), "elements": counts(g["elements"], 3, full=True),
-                               "csv_mfpc": counts(g["wlan.rsn.capabilities.mfpc"].fillna("<missing>"), 5)})
-            out[cap] = {"members": per_member, "packets": n, "last_csv_frame_number": last, "link_types": dict(links),
-                        "announcements_pcap": int(len(pc)), "announcements_csv": int(len(csv)),
-                        "matched": int(matched.sum()), "agreement": agree, "valid": bool(valid),
-                        "groups": sorted(groups, key=lambda x: (x["bssid"], x["frame_len"], x["label"]))}
-            print(f"[RV2] {cls}: {n:,} packets (CSV last frame {last:,}); {int(matched.sum()):,} announcements matched, "
-                  f"agreement {agree}; valid = {valid}", flush=True)
+    src, how = pcap_sources(paths)
+    if "diagnostic" in how:
+        meta = run_metadata("scripts/16_rv2_80211_checks.py (pcap archive check)")
+        print(f"[RV2] written: {write_result('RV2_pcap_archive', {'results': how['diagnostic']}, meta)}")
+    out = {"archive_read": how["read"]}
+    for cap, cls in CAPTURES.items():
+        if not src[cls]:
+            out[cap] = {"members_found": 0}
+            print(f"[RV2] {cls}: no pcap member found", flush=True)
+            continue
+        rows, n, links, per_member = [], 0, Counter(), {}
+        for name, opener, complete in src[cls]:
+            first = n
+            with opener() as stream:
+                for orig, link, data in pcap_packets(stream):
+                    n += 1
+                    links[link] += 1
+                    a = announcement(data, link)
+                    if a is not None:
+                        a["fn"], a["orig_len"] = n, orig
+                        rows.append(a)
+            per_member[name] = {"packets": n - first, "complete": bool(complete)}
+            print(f"[RV2] {cls}: {name} {n - first:,} packets (total {n:,}; member complete: {complete})", flush=True)
+        all_complete = all(c for _, _, c in src[cls])
+        pc = pd.DataFrame(rows, columns=ANN_COLS).astype({"fn": "int64", "orig_len": "int64"})
+        csv_cols = ["frame.number", "frame.len", "wlan.fc.type", "wlan.fc.subtype", "wlan.bssid", "Label",
+                    "wlan.rsn.capabilities.mfpc", "wlan.country_info.code"]
+        csv, last = [], 0
+        for df in iter_parquet(paths["interim_dir"] / f"awid3_{cap}.parquet", csv_cols, 200_000):
+            fn = to_int(df["frame.number"])
+            last = max(last, int(fn.max()))
+            m = ((to_int(df["wlan.fc.type"]) == 0) & to_int(df["wlan.fc.subtype"]).isin([5, 8])).fillna(False)
+            csv.append(df[m.to_numpy(bool)].assign(fn=fn[m.to_numpy(bool)]))
+        csv = pd.concat(csv)
+        csv = csv[csv["fn"].notna()].astype({"fn": "int64"}).drop_duplicates("fn", keep=False)
+        j = pc.merge(csv, on="fn", how="left", indicator=True)
+        matched = j["_merge"] == "both"
+        jm = j[matched]
+        agree = {"length": int((to_int(jm["frame.len"]) == jm["orig_len"]).sum()),
+                 "bssid": int((jm["wlan.bssid"].str.lower() == jm["bssid"]).sum()),
+                 "subtype": int((to_int(jm["wlan.fc.subtype"]) == jm["subtype"]).sum())}
+        share = min(agree.values()) / max(int(matched.sum()), 1)
+        valid = (n == last if all_complete else n <= last) and share >= 0.999
+        j["label"] = j["Label"].fillna("<no CSV row>")
+        groups = []
+        for (b, st, ln, lab), g in j.groupby(["bssid", "subtype", "orig_len", "label"]):
+            if not (b.startswith("0c:9d:92:54:fe") or (g["ssid"] == "ASUS_5G").any()):
+                continue
+            groups.append({"bssid": b, "subtype": "beacon" if st == 8 else "probe response", "frame_len": int(ln),
+                           "label": lab, "n": int(len(g)), "frame_numbers": [int(g["fn"].min()), int(g["fn"].max())],
+                           "privacy": counts(g["privacy"]), "ess": counts(g["ess"]), "rsn": counts(g["rsn"], 5, full=True),
+                           "wpa_element": counts(g["wpa_element"]), "country": counts(g["country"]),
+                           "ssid": counts(g["ssid"], 3, full=True), "elements": counts(g["elements"], 3, full=True),
+                           "csv_mfpc": counts(g["wlan.rsn.capabilities.mfpc"].fillna("<missing>"), 5)})
+        out[cap] = {"members": per_member, "all_members_complete": all_complete, "packets": n,
+                    "last_csv_frame_number": last, "link_types": dict(links),
+                    "announcements_pcap": int(len(pc)), "announcements_csv": int(len(csv)),
+                    "matched": int(matched.sum()), "agreement": agree, "valid": bool(valid),
+                    "groups": sorted(groups, key=lambda x: (x["bssid"], x["frame_len"], x["label"]))}
+        print(f"[RV2] {cls}: {n:,} packets (CSV last frame {last:,}); {int(matched.sum()):,} announcements matched, "
+              f"agreement {agree}; complete = {all_complete}; valid = {valid}", flush=True)
     return out
 
 
